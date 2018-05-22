@@ -1,0 +1,53 @@
+1. 
+function countValuesGreaterThanNumber(arr, y) {
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] > y ? count++ : null; 
+  }
+  console.log(count);
+  return count;
+}
+
+2.
+function printMaxMinAvg(arr) {
+  if (arr.length < 1) return 'invalid array';
+
+  let max = arr[0];
+  let min = arr[0];
+  let sum = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] > max ? max = arr[i] : null;
+    arr[i] < min ? min = arr[i] : null;
+    sum += arr[i];
+  }
+
+  console.log(max, min, sum/arr.length)
+}
+
+3.
+function replaceNegativeValuesWithString (arr) {
+  if (arr.length < 1) return 'invalid string';
+
+  let res = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] > 0 ? res.push(arr[i]) : res.push("Dojo")
+  }
+
+  return res;
+}
+
+4.
+function removeVals(arr, min, max) {
+  let res = [];
+  for (let i = 0; i < min; i++) {
+    res.push(arr[i]);
+  }
+
+  for (let i = max + 1; i < arr.length; i++) {
+    res.push(arr[i]);
+  }
+
+  return res;
+}

@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+  border: 3px solid black;
+  display: inline-block;
+  padding: 15px;
+  background-color: saddlebrown;
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+}
+
+#my-div {
+  background-image: url('http://www.codingdojo.com/blog/wp-content/uploads/ChiDojo2.jpg')
+}
+
+#first-div {
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+}
+
+/* 
+block element: the width of the element will be 100% of the width of the parent
+inline elements: will not take margin, height, width, padding, border
+
+
+
+
+
+*/

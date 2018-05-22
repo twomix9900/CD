@@ -1,0 +1,25 @@
+RECURSION
+
+sum function
+
+function sum(n) {
+  var sum = 0;
+  for (var i = 1; i <= n; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+RECURSIVE METHOD
+function sum(n) {
+  if (n === 0 || n === 1) { //BASE CASE
+    return n
+  }
+
+  return n + sum(n-1);
+}
+
+sum(0) = 0;
+sum(1) = 1;
+sum(2) = 1 + 2  OR sum(1) + n
+sum(3) = 1 + 2 + 3 OR sum(2) + n

@@ -1,0 +1,18 @@
+HTTP REQ/RES cycle
+How does the internet work?
+
+Browser sends info (eg google.com) to DNS look up
+DNS sends back IP address back to Browser
+Browser sends request data (HTTP request) to the IP address server
+  Server has a "defense layer" (web server) that processes the request (eg cashier at in-n-out)
+    Load balancer is a type of web server
+  Logic unit gets data from the web server and processes the data (eg does DB need to be accessed?)
+    This is where processes like GET and POST are processed
+Server sends back HTTP response back to the client (HTML, CSS, JS)
+
+
+
+HTML is the structure of a website
+CSS is the styling
+JS is the user interaction (events)
+

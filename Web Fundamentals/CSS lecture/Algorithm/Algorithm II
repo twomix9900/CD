@@ -1,0 +1,253 @@
+1)
+function multiply (x,y) {
+  console.log(x);
+  console.log(y);
+}
+multiply(2,3)
+console.log(multiply(2,3));
+
+OUTPUT:
+2
+3
+2
+3
+undefined
+
+
+
+2)
+function multiply(x,y){
+  return x*y;
+}
+multiply(2,3);
+console.log(multiply(3,4));
+
+OUTPUT:
+12
+
+
+3)
+var x = [1,2,3,4,5,10];
+for(var i=0; i<5; i++)
+{
+   i = i + 3; 
+   console.log(i);
+}
+
+OUTPUT:
+//i=0
+//i=3
+3
+//i=4
+//i=7
+7
+
+
+
+4)
+x=15;
+console.log(x);
+function awesome(){
+    x=10;
+    console.log(x);
+}
+console.log(x);
+awesome();
+console.log(x);
+
+OUTPUT:
+//x=15
+15
+15
+//x=10;
+10
+10
+
+
+5)
+for(var i=0; i<15; i+=2){
+   console.log(i);
+}
+
+OUTPUT:
+//i=0
+0
+//i=2
+2
+//i=4
+4
+//i=6
+6
+//i=8
+8
+//i=10
+10
+//i=12
+12
+//i=14
+14
+//i=16
+
+
+6)
+for(var i=0; i<3; i++){
+   for(var j=0; j<2; j++){       
+       console.log(i*j);
+   }
+}
+
+OUTPUT:
+//i=0
+//j=0
+0
+//j=1
+0
+//j=2
+//i=1
+//j=0
+0
+//j=1
+1
+//j=2
+//i=2
+//j=0
+0
+//j=1
+2
+//j=2
+//i=3
+
+
+
+7)
+function looping(x,y){
+   for(var i=0; i<x; i++){
+      for(var j=0; j<x; j++){         
+          console.log(i*j);
+      } 
+   }
+}
+z = looping(3,3);
+console.log(z);
+
+OUTPUT:
+//x=3, y=3, i=0, j=0
+0
+//j=1
+0
+//j=2
+0
+//j=3
+//i=1, j=0
+0
+//j=1
+1
+//j=2
+2
+//j=3
+//i=2, j=0
+0
+//j=1
+2
+//j=2
+4
+//j=3
+undefined
+
+
+
+
+8)
+function looping(x,y){
+   for(var i=0; i<x; i++){
+      for(var j=0; j<y; j++){         
+         console.log(i*j);
+      } 
+   }
+   return x*y;
+}
+z = looping(3,5);
+console.log(z);
+
+OUTPUT:
+//x=3, y=5, i=0, j=0
+0
+//j=1
+0
+//j=2
+0
+//j=3
+0
+//j=4
+0
+//j=5
+//i=1, j=0
+0
+//j=1
+1
+//j=2
+2
+//j=3
+3
+//j=4
+4
+//j=5
+//i=2, j=0
+0
+//j=1
+2
+//j=2
+4
+//j=3
+6
+//j=4
+8
+//j=5
+//i=3
+15
+
+
+
+
+
+
+function printUpTo(x){
+  if (x < 0) {
+    console.log("negative number");
+    return false;
+  }
+
+  for (let i = 1; i <= x; i++) {
+    console.log(i);
+  }
+}
+printUpTo(1000000); // should print all the integers from 1 to 1000000
+y = printUpTo(-10); // should return false
+console.log(y); // should print false
+
+
+
+function printSum(x){
+  sum = 0;
+  for (let i = 0; i < 255; i++) {
+    console.log(i);
+    console.log(sum);
+    sum += i;
+  }
+  return sum;
+}
+y = printSum(255) // should print all the integers from 0 to 255 and with each integer print the sum so far.
+console.log(y) // should print 32385
+
+
+
+
+function printSumArray(x){
+  sum = 0;
+  for(var i=0; i<x.length; i++) {
+    sum += x[i];
+  }
+  return sum;
+}
+console.log( printSumArray([1,2,3]) ); // should log 6
+

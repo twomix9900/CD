@@ -1,0 +1,41 @@
+<html>
+<body>
+	<div id='background'>
+        <div id='character' style='position:absolute; top:100px; left:450px; background-image: url("img/down1.png"); width:59px; height:86px;'></div>
+    </div>
+    <script type="text/javascript">
+			var topValue = 100;
+			var leftValue = 450;
+			var direction = 'down';
+			var directionValue = '1';
+
+			function update() {
+				directionValue === '1' ? directionValue = '2' : directionValue = '1';
+				document.getElementById('character').style.left = leftValue + 'px';
+				document.getElementById('character').style.top = topValue + 'px';
+				document.getElementById('character').style.backgroundImage = 'url(img/' + direction + directionValue + '.png)';
+			}
+
+    	document.onkeydown = function(e){
+    		// console.log(e);
+    		if (e.keyCode == 37) { // LEFT
+					leftValue > 0 ? leftValue = leftValue - 10 : null;
+					direction = 'left';
+    		}
+    		else if (e.keyCode == 39) { // RIGHT
+					leftValue < 500 ? leftValue = leftValue + 10 : null;
+					direction = 'right';
+    		}
+				else if (e.keyCode == 38) { // UP
+					topValue > 0 ? topValue =  topValue - 10 : null;
+					direction = 'top';
+    		}
+    		else if (e.keyCode == 40) { // DOWN
+					topValue < 500 ? topValue = topValue = topValue + 10 : null;
+					direction = 'down';
+    		}
+				update();
+    	}
+    </script>
+</body>
+</html>

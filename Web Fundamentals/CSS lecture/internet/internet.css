@@ -1,0 +1,278 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#wrapper {
+  width: 960px;
+  height: 2000px;
+}
+
+.page-header {
+  width: 100%;
+  font-size: 50px;
+}
+
+.page-header img {
+  max-width: 100%;
+  width: 10%;
+  position: relative;
+  top: 28px;
+}
+
+.page-header span {
+  color: #26669C;
+}
+
+#main-header {
+  background: linear-gradient(#29689D, #5082A9, #29689D);
+  color: white;
+  font-size: 32px;
+  padding: 15px;
+  background-color: white;
+}
+
+#body-wrapper {
+  background: linear-gradient(#E3E3E3, white 250px);
+  width: 100%;
+  height: 2000px;
+}
+
+#sidebar {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+  padding-left: 10px;
+  height: 500px;
+}
+
+#sidebar > .sidebar-video > .p1 > span {
+  color: #D72626;
+}
+
+#sidebar > .sidebar-video > .p1 {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+#sidebar > .sidebar-video > .p2 {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#sidebar > .sidebar-video > .p2 > span {
+  color: #26669C;
+}
+
+#sidebar .watch-a-video {
+  color: white;
+  border-radius: 7px;
+  background-color: #3370A3;
+  padding: 10px;
+  width: 90%;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+#sidebar .more-resources {
+  color: white;
+  border-radius: 7px;
+  background-color: #EB9234;
+  padding: 10px 3px;
+  width: 90%;
+  font-size: 16px;
+  margin-top: 2px;
+  margin-left: 5px;
+}
+
+#sidebar hr {
+  margin: 15px;
+  color: black;
+}
+
+#sidebar > .sidebar-video > .ad-image {
+  max-width: 100%;
+  width: 95%;
+}
+
+#sidebar > .sidebar-video > .ad-image-text {
+  max-width: 100%;
+  width: 95%;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  top: -260px;
+  text-align: center;
+  font-size: 19px;
+}
+
+#sidebar > .sidebar-video > .ad-ninja {
+  max-width: 100%;
+  width: 50%;
+  margin-left: 20%;
+  position: relative;
+  top: -260px;
+}
+
+#sidebar > .sidebar-video > .learn-more {
+  max-width: 100%;
+  width: 75%;
+  margin-left: 10%;
+  height: 30px;
+  position: relative;
+  top: -260px;
+  color: white;
+  background-color: #44C9DD;
+  border-radius: 5px;
+}
+
+#main-body {
+  display: inline-block;
+  width: 78%;
+  vertical-align: top;
+}
+
+#main-body > .home {
+  max-width: 100%;
+  width: 3%;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+}
+
+#main-body > .dns {
+  color: #26669C;
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+#phone-wrapper {
+  width: 70%;
+  display: inline-block;
+  margin-left: 60%;
+  margin-top: 0;
+}
+
+#main-body > .phone {
+  max-width: 100%;
+  width: 8%;
+  display: inline-block;
+  margin-left: 55%;
+  margin-right: 0;
+}
+
+#phone-wrapper {
+  list-style: none;
+  display: inline-block;
+  margin-left: 0 !important;
+  width: 26% !important;
+}
+
+#phone-wrapper > .phone-1 {
+  color: #585858;
+  width: 99%;
+  font-size: 10px;
+  text-align: right;
+  display: inline-block;
+  margin: 0 !important;
+}
+
+#phone-wrapper > .phone-2 {
+  color: #04AEDA;
+  width: 99%;
+  text-align: right;
+  font-weight: bold;
+  font-size: 30px;
+  display: inline-block;
+  margin: 0 !important;
+}
+
+#phone-wrapper > .phone-3 {
+  color: #585858;
+  width: 99%;
+  text-align: right;
+  font-size: 10px;
+  display: inline-block;
+  margin: 0 !important;
+}
+
+#main-body > hr {
+  margin: 15px 0;
+  border-color: black;
+}
+
+#main-body > .p-1 {
+  color: #457BA9;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#main-body span {
+  color: #48B3C3;
+}
+
+#main-body ul, #main-body ol {
+  text-align: start;
+  width: 90%;
+  margin-left: 5%;
+}
+
+#main-body li {
+  margin: 5px 0;
+}
+
+#main-body .client-server {
+  max-width: 95%;
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 10px;
+}
+
+#body-footer {
+  border: 5px solid blue;
+  width: 99%;
+  height: 150px;
+  margin-top: 20px;
+  border-bottom: 0;
+}
+
+#body-footer > .html {
+  max-width: 100%;
+  width: 20%;
+  display: inline-block;
+}
+
+#body-footer > ol {
+  display: inline-block;
+  width: 70%;
+  vertical-align: top;
+  list-style: none;
+}
+
+#body-footer > ol > .li-1 {
+  width: 99%;
+  color: #28679C;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#body-footer > ol > .li-2 {
+  width: 99%;
+}
+
+#body-footer > ol > .li-3 {
+  width: 99%;
+}
+
+#body-footer > ol > .li-2 > .italicize {
+  font-style: italic;
+  color: black;
+}
+
+#body-footer > ol > .li-3 a {
+  color: #0397AD;
+  text-decoration: none;
+}

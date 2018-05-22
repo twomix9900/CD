@@ -1,0 +1,136 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+ }
+
+.col {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.row {
+  margin: 5px;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.purple {
+  background-color: purple;
+}
+
+@media only screen and (max-width: 480px) {
+  .sm-0 {
+    display: none;
+  }
+
+  .sm-4 {
+    width: 99%;
+  }
+
+  .green {
+    height: 100px;
+  }
+
+  .red {
+    height: 450px;
+  }
+
+  .yellow {
+    height: 100px;
+  }
+
+  .purple {
+    height: 100px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 1023px) {
+  .med-4 {
+    width: 99%;
+  }
+
+  .med-2 {
+    width: 48%;
+  }
+
+  .med-0 {
+    display: none;
+  }
+
+  .yellow {
+    width: 48%;
+  }
+
+  .purple {
+    width: 98%;
+  }
+
+  .green {
+    height: 100px;
+  }
+
+  .red {
+    height: 350px;
+  }
+
+  .yellow {
+    height: 100px;
+  }
+
+  .purple {
+    height: 100px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .lg-3 {
+    width: 74%;
+  }
+
+  .lg-4 {
+    width: 98.7%;
+  }
+
+  .lg-1 {
+    width: 23.7%;
+  }
+
+  .yellow {
+    width: 31.95%;
+    height: 155px;
+  }
+
+  .purple {
+    width: 99%;
+    height: 65px;
+  }
+
+  .green {
+    height: 100px;
+  }
+
+  .blue {
+    height: 200px;
+  }
+
+  .red {
+    height: 250px;
+  }
+}

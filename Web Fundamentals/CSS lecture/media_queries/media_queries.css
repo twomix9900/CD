@@ -1,0 +1,49 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: purple;
+}
+
+.book {
+  font-style: italic;
+}
+
+.col {
+  display: inline-block;
+  vertical-align: top;
+  padding: 20px;
+}
+
+.row {
+  padding: 10px;
+  border: 3px solid blue;
+}
+
+@media only screen and (min-width:480px) {
+  .sm-4 {
+    width: 99.5%;
+  }
+
+  .sm-0 {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 481px) {
+  .med-2 {
+    width: 49.5%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .lg-1 {
+    width: 24.5%;
+  }
+  .lg-3 {
+    width: 74.5%;
+  }
+}
