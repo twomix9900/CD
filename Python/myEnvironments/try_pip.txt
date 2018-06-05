@@ -1,0 +1,27 @@
+pip install Django==1.11.9
+  Install specific version of Django (1.11.9)
+
+pip list
+  List all the modules currently set up in the virtual environment
+
+pip3 list
+  List all the modules currently set up outside the virtual environment
+
+pip install Django==1.11.9
+  Error message since this version of Django is already installed in the virtual env
+
+pip freeze
+  Output packages in requirements format (file format used for pip install)
+
+pip freeze  > requirements.txt
+  Create a requirements.txt file, consisting of requirement packages in the correct format
+
+pip uninstall Django  
+  Uninstall Django from all environments
+
+pip show Django
+  Show all instances of Django that's installed (none at this moment)
+
+pip search Flask
+  Show all flask modules available through pip
+

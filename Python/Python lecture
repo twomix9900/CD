@@ -1,0 +1,55 @@
+JS
+for (let i = 0; i < 100; i++) {
+  console.log("hello")
+}
+
+FOR LOOPS IN PYTHON
+for i in range (0,100,1): 
+  print("hello")
+  if i%2 == 0:
+    print("even")
+  else:
+    print("odd")
+
+INDENTATIONS IN PYTHON MATTER!
+
+JS function:
+function hello() {
+  console.log("Hello")
+}
+hello();
+
+Python:
+def hello(arg1, arg2):
+  print("Hello")
+
+hello("1","2")
+
+
+WHILE LOOPS IN JS:
+var x = 10;
+while (x > 0) {
+  console.log(x);
+  x--;
+}
+
+Python:
+x = 10
+while x > 0:
+  print("x")
+  x -= 1
+
+def initely(my_list):
+  for i in range(len(my_list)):
+    print(my_list[i])
+
+#OR
+
+for elem in my_list:
+  print(elem)
+
+
+Objects in python:
+my_dictionary = {
+  "name": "patrick"
+}
