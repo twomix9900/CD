@@ -1,0 +1,36 @@
+class is like a blueprint
+
+eg vehicles
+  model
+  color
+  year
+  make
+  price
+
+actions
+  destroy
+  ride
+  sell
+  paint
+  tune
+
+PYTHON
+class Vehicle:
+  def__init__(self,model,color,year):
+    self.year = year
+    self.model = model
+    self.color = color
+    self.milage = 0
+    self.condition = "new"
+  def ride(self):
+    print(self)
+    self.milage += 10
+    print("cruisin")
+
+
+
+
+
+
+
+my_vehicle = Vehicle ("model3", "red","2018)
