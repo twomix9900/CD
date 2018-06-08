@@ -25,25 +25,30 @@ class List:
   def print_all_values(self):
     runner = self.head
     while runner != None:
-      print(runner.val)
+      print("runner:", id(runner), runner.val, "runner.next", id(runner.next))
       runner = runner.next
     print("*"*30)
     return self
 
-  # def remove_node(self,val):
-  #   runner = self.head
-  #   not_found = True
-  #   while runner != None and not_found:
-  #     if runner.next.val == val and runner.next.next == None: ## tail
-  #       print("tail")
-  #       not_found = not not_found
-  #     if runner.next.val == val and runner.next.next: ## non-tail
-  #       print("non-tail")
-  #       not_found = not not_found
-  #     runner = runner.next
-  #   return self
+  def remove_node(self,val):
+    runner = self.head
+    # if runner.val == val:
+    #   print("head")
+    #   self.head = Node(runner.next.val)
+    #   self.remove_node(val)
+    while runner.next != None:
+      # if runner.next.val == val and runner.next.next == None: ## tail
+      #   print("tail")
+      if runner.next.val == val and runner.next.next != None: ## non-tail
+        print("nontail")
+        print("before change\nrunner:", id(runner), runner.val, "runner.next", id(runner.next))
+        runner.next = runner.next.next
+        print("after change\nrunner:", id(runner), runner.val, "runner.next", id(runner.next))
+        print("-"*30)
+      runner = runner.next
+    self.print_all_values()
 
     
 
 list = List(1)
-# list.add_node(2).add_node(3).add_node(4).add_node(5).remove_node(1)
+list.add_node(2).add_node(3).add_node(4).add_node(5).print_all_values().remove_node(1).print_all_values()
