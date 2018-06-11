@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_styles.css') }}">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>These are all my friends!</h1>
+      <table class="table table-striped">
+        <tbody>
+          <thead class=".thead-dark">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Occupation</th>
+          </thead>
+          {% for friend in friends %}
+            <tr>
+              <td>{{ friend.first_name }}</td>
+              <td>{{ friend.last_name }}</td>
+              <td>{{ friend.occupation }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h1>Add a friend</h1>
+      <form action="/process" method="POST">
+        <h6 class="form-group col-4">
+          First name: <input class="form-control" type="text" name="first_name" value={{ session["email"] }}>
+        </h6>
+        <h6 class="form-group col-4">
+          Last Name: <input class="form-control" type="text" name="last_name" value={{ session["first_name"] }}>
+        </h6>
+        <h6 class="form-group col-4">
+          Occupation: <input class="form-control" type="text" name="occupation" value={{ session["last_name"] }}>
+        </h6>
+        <input class="btn btn-primary" type="submit" value="add">
+      </form>
+    </div>
+  </body>
+</html>

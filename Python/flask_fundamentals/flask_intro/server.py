@@ -25,9 +25,9 @@ def hello_world():
 #     print(id)
 #     return "username: " + username + ", id: " + id
 
-@app.route("/dojo")
-def dojo():
-  return "Dojo!"
+@app.route("/hello")
+def hello():
+  return "Hello!"
 
 @app.route("/say/<thing>")
 def say(thing):

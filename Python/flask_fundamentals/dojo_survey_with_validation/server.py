@@ -23,7 +23,7 @@ def process():
   if len(request.form["comment"]) < 1:
     flash("Comment section cannot be empty!")
     errors = True
-
+  print(session)
   if errors == False:
     return redirect("/results", code=307)
   return redirect("/")

@@ -10,7 +10,6 @@ def create():
   print(request.form)
   print("Name",request.form["name"])
   print("Email",request.form["email"])
-  # return render_template("created.html")
   return redirect("/")
 
 app.run(debug=True)
