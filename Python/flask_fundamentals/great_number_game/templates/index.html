@@ -8,8 +8,77 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <style>
+
+      .low {
+        background-color: red;
+        border: 1px solid black;
+        height: 200px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        line-height: 200px;
+      }
+
+      .high {
+        background-color: red;
+        border: 1px solid black;
+        height: 200px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        line-height: 200px;
+      }
+
+      .correct {
+        background-color: green;
+        border: 1px solid black;
+        height: 200px;
+        width: 200px;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+        line-height: 200px;
+      }
+
+    </style>
   </head>
   <body>
-      <h1>hello</h1>
+    <div class="container">
+      <h1>Welcome to the Great Number Game!</h1>
+      <p>I am thinking of a number between 1 and 100. Take a guess!</p>
+      
+      {% if session["guess"] and session["number"] > session["guess"] %}
+      <div class="low">
+        {{ session["guess"] }} was too low!
+      </div>
+      {% endif %}
+      
+      {% if session["guess"] and session["number"] < session["guess"] %}
+      <div class="high">
+        {{ session["guess"] }} was too high!
+      </div>
+      {% endif %}
+      
+      {% if session["guess"] and session["number"] == session["guess"] %}
+      <div class="correct">
+        {{ session["guess"] }} was right!
+      </div>
+      {% endif %}
+      <form action="/process" method="post" style="padding-top: 10px;">
+        <div class="form-group">
+          <input type="text" name="guess" value="" placeholder="enter your guess here">
+        </div>
+        <div class="form-group">
+          <input class="btn btn-primary" type="submit" value="submit">
+        </div>
+      </form>
+      <form action="/reset" method="post">
+        <input class="btn btn-secondary" type="submit" value="reset">
+      </form>      
+    </div>
   </body>
 </html>
