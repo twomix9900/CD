@@ -21,8 +21,9 @@ def process():
 
 @app.route("/reset", methods=["POST"])
 def reset():
+  # session.pop("guess")
+  session.clear()
   session["number"] = random.randrange(0, 101)
-  session["guess"] = False
   return redirect("/index")
 
 if __name__ == "__main__":
