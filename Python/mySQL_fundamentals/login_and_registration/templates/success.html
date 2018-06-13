@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/success_styles.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="main.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    {% with msgs = get_flashed_messages(category_filter=["success"]) %}
+      {% if msgs %}
+        {% for msg in msgs %}
+          <p class="success">{{ msg }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    <h3 class="cyan-text text-darken-2">Welcome {{ session["first_name"] }}!</h3>
+    <form method="POST" action="/logout">
+      <button class="btn waves-effect waves-light" type="submit">Logout</button>
+    </form>
+
+  </div>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>
