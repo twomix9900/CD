@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index_styles.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="main.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="cyan-text text-darken-2">Login and Registration</h1>
+
+    <div class="row">
+      <form action="/register" method="post">
+        <div class="col s12 m5">
+          <h4 class="teal-text">Register</h4>
+          {% with errors = get_flashed_messages(category_filter=["first_name"]) %}
+            {% if errors %}
+              {% for error in errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <div class="input-field col s12">
+            <input name="first_name" type="text" class="validate" value="{{ session["first_name"] }}">
+            <label for="first_name" class="active">First Name</label>
+          </div>
+          {% with errors = get_flashed_messages(category_filter=["last_name"]) %}
+            {% if errors %}
+              {% for error in errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <div class="input-field col s12">
+            <input name="last_name" type="text" class="validate" value="{{ session["last_name"] }}">
+            <label for="last_name" class="active">Last Name</label>
+          </div>
+          {% with errors = get_flashed_messages(category_filter=["email"]) %}
+            {% if errors %}
+              {% for error in errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <div class="input-field col s12">
+            <input name="email" type="email" class="validate" value="{{ session["email"] }}">
+            <label for="email" class="active">Email</label>
+          </div>
+          {% with errors = get_flashed_messages(category_filter=["password"]) %}
+            {% if errors %}
+              {% for error in errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <div class="input-field col s12">
+            <input name="password" type="password" class="validate">
+            <label for="password" class="active">Password</label>
+          </div>
+          <div class="input-field col s12">
+            <input name="confirm_password" type="password" class="validate">
+            <label for="confirm_password" class="active">Confirm password</label>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit">Submit</button>
+        </div>
+
+      </form>
+      
+      <form action="/login" method="post">
+        <div class="col s12 m5">
+          <h4 class="teal-text">Login</h4>
+          {% with errors = get_flashed_messages(category_filter=["invalid"]) %}
+            {% if errors %}
+              {% for error in errors %}
+                <p class="error">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <div class="input-field col s12">
+            <input name="email" type="email" class="validate">
+            <label for="email" class="active">Email</label>
+          </div>
+          <div class="input-field col s12">
+            <input name="password" type="password" class="validate">
+            <label for="password" class="active">Password</label>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+
+
+
+  </div>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

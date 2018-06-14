@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/success_styles.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="main.js"></script>
+</head>
+<body>
+
+  <div class="navbar-fixed">
+    <nav class="teal" role="navigation">
+      <div class="nav-wrapper">
+        <a href="" class="brand-logo"><i class="material-icons">play_arrow</i>{{ session["first_name"] }}</a>
+        <ul class="right">
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="message-inbox col m5">
+        <h5 class="teal-text">{{ session["message_inbox"]|length }} messages in inbox:</h5>
+        {% with messages = session["message_inbox"] %}
+          {% if messages %}
+           {% for message in messages %}
+              <div class="card blue-grey darken-1 hoverable">
+                <div class="card-content white-text">
+                  <span class="card-title">{sender name} said</span>
+                  <p>{{ message.message }}</p>
+                  <hr>
+                  <form action="/delete_message" method="post">
+                    <input type="hidden" name="message_to_delete" value="{{ message.message }}">
+                    <button class="waves-effect waves-teal btn" type="submit"><i class="material-icons small">delete</i>
+                  </form>
+                  </button>
+                </div>
+              </div>
+           {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <div class="message-outbox col m5">
+        <h5 class="teal-text">Send message:</h5>
+        {% with recipients = session["all_users"] %}
+          {% if recipients %}
+            {% for recipient in recipients %}
+              {% if recipient["id"] != session["userid"] %}
+                <div class="card blue-grey darken-1 hoverable">
+                  <div class="card-content white-text">
+                    <span class="card-title">To: {{ recipient["first_name"] }}</span>
+                    <form method="POST" action="/send_message">
+                      <input name="outgoing_message" type="text" placeholder="message" id="outgoing_message">
+                      <button class="waves-effect waves-teal btn" type="submit"><i class="material-icons small">send</i>
+                      <input type="hidden" name="recipient_id" value="{{ recipient['id'] }}">
+                      <input type="hidden" name="user_id" value="{{ recipient['id'] }}">
+                    </form>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+
+    </div>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>
