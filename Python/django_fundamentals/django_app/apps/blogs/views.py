@@ -20,7 +20,7 @@ def create(request):
     return redirect("/")
   else:
     if "name" in request.session:
-      request.session["name"] = request.POST["name"]
+    request.session["name"] = request.POST["name"]
     request.session["test"] = "test session"
     request.session["counter"] = 100
     return render(request, "blogs/blogs.html")

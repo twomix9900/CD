@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load static %}
+
+  <script type="text/javascript" src="{% static 'index/js/index.js' %}"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <title>Document</title>
+
+</head>
+<body>
+  <div class="container">
+
+    <h5>Your gold: {{ request.session.gold }}</h5>
+    <div class="col s12 m12">
+      <div class="row">
+        <div class="col s3 m3 farm">
+          <h5>Farm</h5>
+          <p>(earns 10-20 golds)</p>
+        </div>
+        <div class="col s3 m3 farm">
+          <h5>Cave</h5>
+          <p>(earns 5-10 golds)</p>
+        </div>
+        <div class="col s3 m3 farm">
+          <h5>House</h5>
+          <p>(earns 2-5 golds)</p>
+        </div>
+        <div class="col s3 m3 farm">
+          <h5>Casino</h5>
+          <p>(earns/takes 0-50 golds)</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s3 m3 farm">
+          <form action="/farm" method="POST">
+            {% csrf_token %}
+            <button class="btn-small waves-effect waves-light" type="submit" name="action">
+              Find Gold
+            </button>
+          </form>
+        </div>
+        <div class="col s3 m3 farm">
+          <form action="/cave" method="POST">
+            {% csrf_token %}
+            <button class="btn-small waves-effect waves-light" type="submit" name="action">
+              Find Gold
+            </button>
+          </form>
+        </div>
+        <div class="col s3 m3 farm">
+          <form action="/house" method="POST">
+            {% csrf_token %}
+            <button class="btn-small waves-effect waves-light" type="submit" name="action">
+              Find Gold
+            </button>
+          </form>
+        </div>
+        <div class="col s3 m3 farm">
+          <form action="/casino" method="POST">
+            {% csrf_token %}
+            <button class="btn-small waves-effect waves-light" type="submit" name="action">
+              Find Gold?
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+      
+    <ul class="collection with-header">
+      <li class="collection-header"><h4>Activities</h4></li>
+      {% for activity in request.session.activities %}
+        {% if activity.location == "casino" and activity.gold < 0 %}
+          <li class="collection-item"><div style="color: red;">{{ activity.gold }} gold from {{ activity.location }}! -- {{ activity.time }}</div></li>
+          {% else %}
+          <li class="collection-item"><div style="color: green;">+{{ activity.gold }} gold from {{ activity.location }}! -- {{ activity.time }}</div></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+</html>

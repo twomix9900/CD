@@ -1,3 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
+
 def index(request):
-  return render(request, "index/index.html")
+  context = {
+      "somekey":"somevalue"
+  }
+  return render(request,'appname/page.html', context)
