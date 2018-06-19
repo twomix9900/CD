@@ -39,6 +39,15 @@ CHEATSHEET
     from .models import *
 
     def index(request):
+      try:    
+        errors = User.objects.basic_validator(request.POST)
+        if len(errors):
+          for key, value in errors.items():
+            messages.error(request, value)
+          return redirect('/')
+      except:
+        pass
+
       context = {
         "somekey" : "hello"
       }
@@ -51,13 +60,25 @@ CHEATSHEET
     from __future__ import unicode_literals
     from django.db import models
 
+    class UserManager(models.Manager):
+      def basic_vaildator(self, postData):
+        errors = {}
+        if len(postData["first_name"]) < 5:
+          errors["first_name"] = "First name should be at least 5 characters"
+        if len(postData["last_name"]) < 5:
+          errors["last_name"] = "Last name should be at least 5 characters"
+        if len(postData["password"]) < 8:
+          errors["password"] = "Password should be at least 8 characters"
+        return errors
+
     class User(models.Model):
       first_name = models.CharField(max_length=50)
       last_name = models.CharField(max_length=50)
-      email_address = models.EmailField(max_length=50)
-      age = models.IntegerField()
+      email = models.EmailField(max_length=50)
+      password = models.CharField(max_length=100)
       created_at = models.DateTimeField(auto_now_add = True)
       updated_at = models.DateTimeField(auto_now_add = True)
+      objects = UserManager()
 
       def __str__(self):
         return "Name: " + self.name + "City: " + self.city    
