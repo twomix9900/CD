@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 import re
+import bcrypt
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class UserManager(models.Manager):
@@ -24,7 +25,23 @@ class UserManager(models.Manager):
       errors["password"] = "Passwords must match"
     elif len(postData["password"]) < 8:
       errors["password"] = "Password should be at least 8 characters"
-    return errors
+    if len(errors):
+      return errors
+    else:
+      result = {}
+      user = User.objects.create(first_name=postData["first_name"], last_name=postData["last_name"], email=postData["email"], password=bcrypt.hashpw(postData["password"].encode(), bcrypt.gensalt()))
+      result["success"] = user
+      return result
+
+  def login_validator(self, postData):
+    user = User.objects.filter(email=postData["email"])[0]
+    if bcrypt.checkpw(postData["password"].encode(), user.password.encode()):
+      result = {}
+      result["success"] = user
+      return result
+    else:
+      return result
+
 
 class User(models.Model):
   first_name = models.CharField(max_length=50)
@@ -34,7 +51,6 @@ class User(models.Model):
   created_at = models.DateTimeField(auto_now_add = True)
   updated_at = models.DateTimeField(auto_now_add = True)
   objects = UserManager()
-
 
   def __repr__(self):
     return "<User object: {} {} {}>".format(self.first_name, self.last_name, self.email)

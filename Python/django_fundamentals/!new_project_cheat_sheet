@@ -9,6 +9,7 @@ CHEATSHEET
   update MAIN urls.py
   create APP_NAME urls.py
   update APP_NAME view.py
+  create APP_NAME index.html
   python ../manage.py makemigrations
   python ../manage.py migrate
   python ../manage.py runserver
@@ -29,7 +30,7 @@ CHEATSHEET
       from . import views
 
       urlpatterns = [
-        url('^$', views.index) 
+        url('^$', views.index),
       ]
     -------------------------------------------
 
@@ -37,6 +38,8 @@ CHEATSHEET
     -------------------------------------------
     from django.shortcuts import render, HttpResponse, redirect
     from .models import *
+    from django.contrib import messages
+    import bcrypt
 
     def index(request):
       try:    
@@ -53,6 +56,25 @@ CHEATSHEET
       }
       request.session["test"] = 'session test'
       return render(request, "index/index.html", context)
+
+      def register(request):
+      if request.method == "POST":
+        try:    
+          errors = User.objects.registration_validator(request.POST)
+          if len(errors):
+            for key, value in errors.items():
+              messages.error(request, value, extra_tags=key)
+            return redirect('/')
+          else:
+            user = User.objects.create(first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()))
+            request.session["id"] = user.id
+            request.session["first_name"] = user.first_name
+            request.session["last_name"] = user.last_name
+            request.session["email"] = user.email
+            messages.add_message(request, messages.SUCCESS, 'Registration successful', extra_tags="registration")
+            return redirect('/success/')
+        except:
+          pass
     -------------------------------------------
 
     APP_NAME models.py

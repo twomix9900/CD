@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load static %}
+  <script type="text/javascript" src="{% static 'index/js/index.js' %}"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <title>FaceWall</title>
+
+</head>
+
+<nav>
+  <div class="nav-wrapper teal">
+    <a href="" class="brand-logo">&nbsp;&nbsp;&nbsp;&nbsp;FaceWall</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>Hello {{request.session.first_name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <li>        
+        <form action="/logout/" method="POST">
+          {% csrf_token %}
+          <button class="waves-effect waves-teal btn-flat white-text" type="submit">Log out</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<body>
+  <div class="container">
+    <!--  -->
+    {% for message in messages %}
+      <div style="color: green;">{{ message }}</div>
+    {% endfor %}
+    <div class="row">
+      <div class="col s12 m12">
+        <h5>Post a message:</h5>
+        <br>
+        <div class="row">
+          <form class="col s12" method="POST" action="/wall/post_message/">
+            {% csrf_token %}
+            <div class="row">
+              <div class="input-field col s10">
+                <textarea class="materialize-textarea" name="message"></textarea>
+                <label>Message</label>
+              </div>
+            </div>
+            <button class="btn-small waves-effect waves-light" type="submit">Post</button>
+          </form>
+        </div>
+        
+        <div class="row">
+          <div class="col s12 m12">
+            {% for message in all_user_messages %}
+              <div class="card teal darken-1">
+                <div class="card-content white-text">
+                  <span class="card-title">{{message.user_id.first_name}} - {{message.created_at}}</span>
+                  <p>{{message.message}}</p>
+                </div>
+              </div>
+            {% endfor %}
+            <!-- <form class="col s12" method="POST">
+              {% csrf_token %}
+              <div class="row">
+                <div class="input-field col m8 s7 offset-m4 offset-s5">
+                  <h5>Post a comment</h5>
+                  <textarea class="materialize-textarea"></textarea>
+                  <button class="btn-small waves-effect waves-light" type="submit"><i class="material-icons">send</i></button>
+                </div>
+              </div>
+            </form> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--  -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+</body>
+</html>
