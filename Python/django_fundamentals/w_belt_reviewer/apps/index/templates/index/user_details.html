@@ -13,16 +13,16 @@
 
 <nav>
   <div class="nav-wrapper teal">
-    <a href="" class="brand-logo">&nbsp;&nbsp;&nbsp;&nbsp;Hello {KAY}{{request.session.first_name}}</a>
+    <a href="" class="brand-logo">&nbsp;&nbsp;&nbsp;&nbsp;Hello {{request.session.user_first_name}}</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li>        
-          <form action="/add_book/" method="POST">
-            {% csrf_token %}
-            <button class="waves-effect waves-teal btn-flat white-text" type="submit">Home</button>
-          </form>
-        </li>
       <li>        
-        <form action="/add_book/" method="POST">
+        <form action="/books/view/" method="POST">
+          {% csrf_token %}
+          <button class="waves-effect waves-teal btn-flat white-text" type="submit">Home</button>
+        </form>
+      </li>
+      <li>        
+        <form action="/book/add/" method="POST">
           {% csrf_token %}
           <button class="waves-effect waves-teal btn-flat white-text" type="submit">Add Book and Review</button>
         </form>
@@ -45,18 +45,21 @@
       <div class="col s12 m6">
         <div class="card blue-grey darken-1">
           <div class="card-content white-text">
-            <span class="card-title">{MATRICK}</span>
-            <p>{EMAIL: BADEMAIL@GMAIL>COM}</p>
-            <p>{TOTAL REVIEWS: 42}</p>
+            <span class="card-title">{{reviewer.first_name}}</span>
+            <p>email: {{reviewer.email}}</p>
+            <p>Reviews: {{reviewer.reviews.count}}</p>
           </div>
         </div>
         <h5>Posted reviews on the following books:</h5>
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <p>{50 SHADES OF MEMES}</p>
-            <p>{HARRY POTTER AND THE CHAMBER OF MEMES}</p>
+        {% for review in all_user_reviews %}
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <p>Book: <a href="/book/details/{{review.book.id}}/">{{review.book.title}}</a></p>
+              <p>Rating: {{review.rating}}/5</p>
+              <p>"{{review.text}}"</p>
+            </div>
           </div>
-        </div>
+        {% endfor %}
       </div>     
 
 <!--  -->

@@ -36,35 +36,48 @@
   <div class="container">
 <!--  -->
     <div class="row">
-      <h3>{50 SHADES OF MEME}</h3>
-      <h4>{Author: Matrick Mayo}</h4>
+      <h3>{{book.title}}</h3>
+      <h4>{{book.author.first_name}} {{book.author.last_name}}</h4>
       <div class="col s12 m6">
         <h4>Reviews:</h4>
-        <div class="card blue-grey darken-1">
-          <div class="card-content white-text">
-            <span class="card-title">{4 STARS}</span>
-            <p>{JERRY SAYS: WHAT AN EMOTIONAL BOOK. 5/5}</p>
-            <p>{CREATED ON: MEMESDAY 2018}</p>
+        {% for review in reviews %}
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Rating: {{review.rating}}/5</span>
+              <p><a href="/user/details/{{review.reviewer.id}}/">{{review.reviewer.first_name}}</a> says "{{review.text}}"</p>
+              <p>{{review.created_at}}</p>
+              {% if request.session.user_id == review.reviewer_id %}
+                <form method="POST" action="/book/review/delete/{{review.id}}/">
+                  {% csrf_token %}
+                  <button class="btn waves-effect waves-light" type="submit">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </form>
+              {% endif %}
+            </div>
           </div>
-        </div>
+        {% endfor %}
       </div>     
 
       <div class="col s12 m6">
-        <label>Review</label>
-        <textarea name="review" class="materialize-textarea"></textarea>
-        <div class="input-field col m2 s2">
-          <select>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-          <label>Rating</label>
-        </div>
-        <div class="col m12 s12">
-          <button class="btn-small waves-effect waves-light" type="submit">Submit Review</button>
-        </div>
+        <form method="POST" action="/book/add_review/">
+          {% csrf_token %}
+          <label>Review</label>
+          <textarea name="review" class="materialize-textarea"></textarea>
+          <div class="input-field col m2 s2">
+            <select name="rating">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <label>Rating</label>
+          </div>
+          <div class="col m12 s12">
+            <button class="btn-small waves-effect waves-light" type="submit">Submit Review</button>
+          </div>
+        </form>
       </div>   
 
     </div>

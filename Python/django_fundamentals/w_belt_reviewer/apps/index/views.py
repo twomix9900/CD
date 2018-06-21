@@ -50,21 +50,51 @@ def logout(request):
 
 def view_books(request):
   context = {
-    "all_authors":Author.objects.all(),
+    # "all_books":Book.objects.values_list("title", flat=True).distinct(),
     "all_books":Book.objects.all(),
-    "all_reviews":Review.objects.all().order_by('-created_at'),
-    "all_user_reviews":User.objects.filter(id=request.session["user_id"])[0].reviews.all().order_by('-created_at'),
     "first_three_reviews":Review.objects.all().order_by('-created_at')[:3],
-    "fourth_and_on_reviews":Review.objects.all().order_by('-created_at')[3:],
-
   }
   return render(request, "index/books.html", context)
 
 def add_book(request):
   return render(request, "index/add_book.html")
 
-def book_details(request):
-  return render(request, "index/book_details.html")
+def book_details(request,id):
+  context = {
+    "book": Book.objects.get(id=id),
+    "reviews": Review.objects.filter(book=Book.objects.get(id=id))
+  }
+  request.session["book_id"] = id
+  return render(request, "index/book_details.html", context)
 
-def user_details(request):
-  return render(request, "index/user_details.html")
+def user_details(request, id):
+  request.session["reviewer_id"] = id
+  context = {
+    "reviewer": User.objects.get(id=id),
+    "all_user_reviews": Review.objects.filter(reviewer=User.objects.get(id=request.session["user_id"]))
+  }
+  return render(request, "index/user_details.html", context)
+
+def add_book_process(request):
+  if len(Author.objects.filter(first_name=request.POST["first_name"],last_name=request.POST["last_name"])) == 0:
+    author = Author.objects.create(first_name=request.POST["first_name"],last_name=request.POST["last_name"])
+  else:
+    author = Author.objects.filter(first_name=request.POST["first_name"],last_name=request.POST["last_name"])[0]
+  if len(Book.objects.filter(title=request.POST["title"],author=author)) == 0:
+    book = Book.objects.create(title=request.POST["title"],author=author)
+  else:
+    book = Book.objects.filter(title=request.POST["title"],author=author)[0]
+  Review.objects.create(book=book,rating=request.POST["rating"],text=request.POST["review"],reviewer=User.objects.get(id=request.session["user_id"]))
+  request.session["book_id"] = book.id
+  return redirect("/book/details/" + str(request.session["book_id"]) + "/")
+
+def add_book_review(request):
+  if not request.POST["review"]:
+    return redirect("/book/details/" + str(request.session["book_id"]) + "/")
+  Review.objects.create(book=Book.objects.get(id=request.session["book_id"]), rating=request.POST["rating"], text=request.POST["review"], reviewer=User.objects.get(id=request.session["user_id"]))
+
+  return redirect("/book/details/" + str(request.session["book_id"]) + "/")
+
+def delete_book_review(request,id):
+  Review.objects.get(id=id).delete()
+  return redirect("/book/details/" + str(request.session["book_id"]) + "/")

@@ -40,16 +40,18 @@
       <div class="col s12 m110">
         <h4>Add a New Book Title and a Review:</h4>
           <div class="input-field col s8 m8">
-            <form method="POST" action="/book/details/">
+            <form method="POST" action="/book/add/process/">
               {% csrf_token %}
               <div><label>Book Title</label></div>
-              <input type="text" name="book_title">
-              <div><label>Author</label></div>
-              <input type="text" name="book_author">
+              <input type="text" name="title">
+              <div><label>Author First Name</label></div>
+              <input type="text" name="first_name">
+              <div><label>Author Last Name</label></div>
+              <input type="text" name="last_name">
               <label>Review</label>
               <textarea name="review" class="materialize-textarea"></textarea>
               <div class="input-field col m1 s1">
-                <select>
+                <select name="rating">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
