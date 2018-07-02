@@ -56,25 +56,6 @@ CHEATSHEET
       }
       request.session["test"] = 'session test'
       return render(request, "index/index.html", context)
-
-      def register(request):
-      if request.method == "POST":
-        try:    
-          errors = User.objects.registration_validator(request.POST)
-          if len(errors):
-            for key, value in errors.items():
-              messages.error(request, value, extra_tags=key)
-            return redirect('/')
-          else:
-            user = User.objects.create(first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=bcrypt.hashpw(request.POST["password"].encode(), bcrypt.gensalt()))
-            request.session["id"] = user.id
-            request.session["first_name"] = user.first_name
-            request.session["last_name"] = user.last_name
-            request.session["email"] = user.email
-            messages.add_message(request, messages.SUCCESS, 'Registration successful', extra_tags="registration")
-            return redirect('/success/')
-        except:
-          pass
     -------------------------------------------
 
     APP_NAME models.py
@@ -132,7 +113,9 @@ CHEATSHEET
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       {% load static %}
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
       <script type="text/javascript" src="{% static 'index/js/index.js' %}"></script>
+      <link rel="stylesheet" type="text/css" href="{% static 'index/css/style.css' %}" />
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
       <title>Document</title>

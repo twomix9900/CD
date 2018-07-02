@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trivia</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <script>
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    $(document).ready(function () {
+      console.log('ready!')
+      $.get("https://opentdb.com/api.php?amount=10&type=multiple", function (data) {
+        for (let i = 0; i < data.results.length; i++) {
+          let choices = data.results[i].incorrect_answers;
+          let answer = data.results[i].correct_answer;
+          let randomIdx = getRandomInt(0,2);
+          choices.splice(randomIdx, 0, answer);
+          console.log(choices);
+          console.log(answer, " idx: ", randomIdx);
+          $("#questions").append("<p id=q" + i + ">" + data.results[i].question + "</p>");
+          $("#q" + i).append("<ul id=l" + i + ">");
+          for (let j = 0; j < choices.length; j++) {
+            if (j !== randomIdx) {
+              $("ul#l"+i).append("<li class=not_answer>" + choices[j] + "</li>").click(function () {
+                $(this).css('background', 'red')
+              })
+            } else {
+              $("ul#l"+i).append("<li class=answer>" + choices[j] + "</li>").click(function() {
+                $(this).css('background', 'green')
+              })
+            }
+          }
+          $("li").append("</ul>")
+        }
+      })
+    })
+  </script>
+  <h1>Trivia Fun</h1>
+  <div id="questions"></div>
+</body>
+</html>
