@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+</head>
+<body>
+  <script>
+    $(document).ready(function(){
+      $('.initialHidden').hide();
+      var socket = io();
+
+      socket.on('updated_message', function (data) {
+        $(".initialHidden").show();
+        $("#message").html("<h5>You submitted: " + JSON.stringify(data.msg) + "</h5>")
+      })
+
+      socket.on('random_number', function (data) {
+        $(".initialHidden").show();
+        $("#number").html("<h5>Your lucky number is: " + JSON.stringify(data.number) + "</h5>")
+      })
+      
+      $('button').click(function (e) {
+        e.preventDefault()
+        data = $('form').serializeArray();
+        socket.emit('posting_form', { form: data });
+      })
+
+      $('select').formSelect();
+    });
+  </script>
+
+  <div class="container">
+    <div id="message" class="initialHidden"></div>
+    <div id="number" class="initialHidden"></div>
+
+    <form>
+      <div>
+        Your Name: <input type="text" name="name"> 
+      </div>
+      <div class="input-field">
+        Dojo Location:
+        <select name="location">
+          <option value="Seattle">Seattle</option>
+          <option value="San Jose">San Jose</option>
+          <option value="Burbank">Burbank</option>
+        </select>
+      </div>
+      <div class="input-field">
+        Favorite Language:
+        <select name="language">
+          <option value="Java">Java</option>
+          <option value="Javascript">Javascript</option>
+          <option value="Python">Python</option>
+        </select>
+      </div>
+      <div>
+        Comment:
+        <textarea class="materialize-textarea" name="comment">
+        </textarea>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit">
+        Submit
+      </button>
+    </form>
+
+  </div>
+</body>
+</html>

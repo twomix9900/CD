@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+</head>
+<body>
+  <script>
+    $(document).ready(function(){
+      var socket = io();
+
+      socket.on('updated_counter', function (data) {
+        $(".counter").text(data.counter)
+      })
+      
+      $('button.epic').click(function (e) {
+        e.preventDefault()
+        socket.emit('epic');
+      })
+
+      $('button.reset').click(function (e) {
+        e.preventDefault()
+        socket.emit('reset');
+      })
+    });
+  </script>
+
+  <div class="container">
+    <h2>This button has been pushed <span class="counter"></span> time(s).</h2>
+    <form>
+      <button class="btn-large waves-effect waves-light epic" type="submit">
+        PUSH THE EPIC BUTTON
+      </button>
+    </form>
+    <form>
+      <button class="btn-large waves-effect waves-light reset" type="submit">
+        RESET
+      </button>
+    </form>
+
+  </div>
+</body>
+</html>
