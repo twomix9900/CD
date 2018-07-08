@@ -1,0 +1,8 @@
+<!-- tip to easily see objects printed in full instead of [object Object] -->
+<%- JSON.stringify(messages) %> 
+<!-- based on the structure of your messages, determine how to display them -->
+<% if(messages.registration) { %>
+     <% for (var x of messages.registration) { %>
+      <h3><%= x %></h3>
+     <% } %>
+ <% } %>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src='https://cdn.rawgit.com/admsev/jquery-play-sound/master/jquery.playSound.js'></script>
+</head>
+<body>
+  <script>
+    $(document).ready(function(){
+      var socket = io();
+      var progress = 0;
+      var idx = 0;
+      $('.music_block').css('background-color', $('.music_block').attr('curr_color'));
+
+      socket.on('init_color', function (data) {
+        for (block in data) {
+          let alt_color;
+          data[block] == 'red' ? alt_color = 'blue' : alt_color = 'red';
+          $('#' + block).css('background-color', "" + data[block])
+          $('#' + block).css('curr_color', "" + data[block])
+          $('#' + block).css('alt_color', "" + alt_color)
+        }
+      })
+
+      socket.on('init_progress', function (data) {
+        progress = data
+      })
+
+      socket.on('block_update', function (data) {
+        for (block in data) {
+          let alt_color;
+          data[block] == 'red' ? alt_color = 'blue' : alt_color = 'red';
+          $('#' + block).css('background-color', "" + data[block])
+          $('#' + block).css('curr_color', "" + data[block])
+          $('#' + block).css('alt_color', "" + alt_color)
+        }
+      })
+
+      socket.on('play_sound', function (data) {
+        if ($('#sample' + idx).attr('curr_color') !== 'red') {
+          console.log('play')
+          $.playSound($('#sample' + idx).attr('sound_link'));
+        } 
+      })
+
+      $('.music_block').click(function(){ 
+        let temp = $(this).attr("curr_color");
+        $(this).attr("curr_color",$(this).attr("alt_color"));
+        $(this).attr("alt_color",temp);
+        $(this).css('background-color', $(this).attr('curr_color'));
+        socket.emit("block_click", {
+          id: $(this).attr("id"),
+          color: $(this).attr("curr_color"),
+        })
+      });
+
+      function gameloop() {
+        if (progress == 270) {
+          $('.musicBar').empty();
+          progress = 0;
+          idx = 0;
+        } 
+        if (progress == 10 || progress == 44 || progress == 78 || progress == 113 || progress == 148 || progress == 180 || progress == 216 || progress == 255) {
+          idx++;
+          if ($('#sample' + idx).attr('curr_color') !== 'red') {
+            console.log('play')
+            $.playSound($('#sample' + idx).attr('sound_link'));
+          } 
+        }
+        progress++;
+        $('.musicBar').append('l')
+        setTimeout(gameloop, 9)
+      }
+      gameloop()
+      
+    });
+  </script>
+  <style>
+    .music_block {
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+      margin-top: 40px;
+      margin-right: 56px;
+    }
+    h1 {
+      margin-left: 300px;
+    }
+  </style>
+  <div class="body">
+    <div class="container">
+      <h1>Beat Sequencer</h1>
+      <div id="sample1" class="music_block" curr_color="red" alt_color="blue" sound_link="https://www.myinstants.com/media/sounds/mlg-airhorn.mp3"></div>
+      <div id="sample2" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/DD_CBell10.mp3"></div>
+      <div id="sample3" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/BB_K10_Clap01.mp3"></div>
+      <div id="sample4" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/DD_R_CBell6.mp3"></div>
+      <div id="sample5" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/Bumblexxx.mp3"></div>
+      <div id="sample6" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/SLAMRAID.mp3"></div>
+      <div id="sample7" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/DD_Snare3.mp3"></div>
+      <div id="sample8" class="music_block" curr_color="red" alt_color="blue" sound_link="http://projects.stevenyaussi.com/music/beat_bounce/DD_R_Conga3.mp3"></div>
+      <div class="musicBar"></div>
+    </div>
+  </div>
+</body>
+</html>
