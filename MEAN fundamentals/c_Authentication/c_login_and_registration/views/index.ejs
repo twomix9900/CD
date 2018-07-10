@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Message Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+</head>
+
+<body>
+  <script>
+    $(document).ready(function () {
+      console.log('hello')
+    });
+  </script>
+  <div class="body">
+    <div class="container">
+      <div class="row">
+
+        <div class="col s12 m6">
+          <h4>Registration</h4>
+          <% if (messages.registration) { %>
+            <% for (var x of messages.registration) { %>
+              <p style="color: red"><%= (x) %></p>
+            <% } %>
+          <% } %>
+          <% if (messages.password) { %>
+            <% for (var x of messages.password) { %>
+              <p style="color: red"><%= (x) %></p>
+            <% } %>
+          <% } %>
+          <div class="input-field col s10 m10">
+            <form method="POST" action="/register/">
+              <div>
+                <label>First Name</label>
+              </div>
+              <input type="text" name="first_name">
+              <div>
+                <label>Last Name</label>
+              </div>
+              <input type="text" name="last_name">
+              <div>
+                <label>Email</label>
+              </div>
+              <input type="text" name="email">
+              <div>
+                <label>Birthday</label>
+              </div>
+              <input type="date" name="birthday">
+              <div>
+                <label>Password</label>
+              </div>
+              <input type="password" name="password">
+              <div>
+                <label>Confirm Password</label>
+              </div>
+              <input type="password" name="password_confirm">
+              <button class="btn-small waves-effect waves-light" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="col s12 m6">
+          <h4>Login</h4>
+          <% if (messages.login) { %>
+            <% for (var x of messages.login) { %>
+              <p style="color: red"><%= (x) %></p>
+            <% } %>
+          <% } %>
+          <div class="input-field col s10 m10">
+            <form method="POST" action="/login/">
+              <div>
+                <label>Email</label>
+              </div>
+              <input type="text" name="email">
+              <div>
+                <label>Password</label>
+              </div>
+              <input type="password" name="password">
+              <button class="btn-small waves-effect waves-light" type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
