@@ -1,0 +1,193 @@
+Require these:
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+mongoose.connect('mongodb://localhost/DBNAMEGOESHERE');
+mongoose.model('User', UserSchema); 
+const User = mongoose.model('User');
+MAKE SURE MONGOD IS RUNNING IN BACKGROUND (sudo mongod)
+
+Define Schema:
+var UserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: [true, "An email is required"],
+    minlength: [3, "Email must be at least 3 characters long"],
+    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Enter a valid email address'],
+    unique: true,
+  },
+  first_name: {
+    type: String,
+    required: [true, "First name is required"],
+    minlength: [3, "First name must be at least 3 characters long"]
+  },
+  last_name: {
+    type: String,
+    required: [true, "Last name is required"],
+    minlength: [3, "Last name must be at least 3 characters long"]
+  },
+  password: {
+    type: String,
+    required: [true, "Password is required"],
+    minlength: [6, "Password name must be at least 6 characters long"]
+  },
+  birthday: {
+    type: Date,
+    required: [true, "Birthday is required"]
+  }
+})
+
+Unique validator:
+UserSchema.plugin(uniqueValidator, { message: 'This {PATH} is already in use' }); // example message: "This email is already in use"
+
+DB level validator:
+UserSchema.pre('save', function(next) {
+  var user = this;
+
+  // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+
+  // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+      if (err) return next(err);
+
+      // hash the password using our new salt
+      bcrypt.hash(user.password, salt, function(err, hash) {
+          if (err) return next(err);
+
+          // override the cleartext password with the hashed one
+          user.password = hash;
+          next();
+      });
+  });
+});
+
+bcrypt:
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const SALT_WORK_FACTOR = 10;
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'ultradanksecretstuff',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}))
+
+comparing PW:
+  User.findOne({
+    email: req.body.email
+  }, function (err, user) {
+    if (err) throw err;
+    if (user !== null) {
+      user.comparePassword(req.body.password, function (err, isMatch) {
+        if (err) throw err;
+        if (isMatch) {
+          req.session.id = user._id;
+          req.session.email = user.email;
+          res.redirect('/success/');
+          return false;
+        } else {
+          req.flash('login', 'Invalid credentials');
+          res.redirect('/');
+          return false;
+        }
+      });
+    } else {
+      req.flash('login', 'Invalid credentials');
+      res.redirect('/');
+      return false;
+    }
+  });
+
+Create new document:
+  var user = new User({ first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password, birthday: req.body.birthday })
+  user.save(function(err) {
+    if (err) {
+      for (var key in err.errors) {
+        req.flash('registration', err.errors[key].message)
+      }
+      res.redirect('/');
+      return false;
+    } else {
+      req.session.id = user._id;
+      req.session.email = user.email;
+      res.redirect('/success');
+      return false;
+    }
+  })
+
+Update document:
+  Dog.findById(req.params.id, function (err, dog) {
+    if (err) return handleError(err);
+    dog.name = req.body.name;
+    dog.age = req.body.age;
+    dog.save(function (err, updatedDog) {
+      if (err) return handleError(err);
+    })
+  })
+  res.redirect("/");
+
+Get document:
+  Dog.find({_id: req.params.id}, function(err, data) {
+    if (err) {
+      console.log('Error! ', err)
+    } else {
+      console.log('dog_id data: ', data)
+      res.render("edit_dog", {
+        dogs : data
+      });
+    }
+  })
+
+Delete document:
+  Dog.remove({_id: req.params.id}, function(err, data) {
+    if (err) {
+      console.log('Error! ', err)
+    } 
+  })
+  res.redirect('/')
+  
+One to many relationship examples:
+var CommentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "A name is required"],
+    minlength: [3, "Name must be at least 3 characters"],
+  },
+  message: {
+    type: String,
+    required: [true, "A message is required"],
+    minlength: [5, "Message must be at least 3 characters"],
+  },  
+})
+
+var MessageSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "A name is required"],
+    minlength: [3, "Name must be at least 3 characters"],
+  },
+  message: {
+    type: String,
+    required: [true, "A message is required"],
+    minlength: [5, "Message must be at least 3 characters"],
+  },
+  comments: [CommentSchema]
+ }, { timestamps: true } )
+
+//create new comment (one message has multiple comments)
+Comment.create(req.body, function (err, data) {
+  if (err) {
+    console.log("Error adding comment", err)
+  } else {
+    Message.findOneAndUpdate({
+      _id: req.params.id
+    }, {
+      $push: {
+        comments: data
+      }
+    }, function (err, data) {
+      console.log("Error adding comment", err)
+    })
+  }
+})

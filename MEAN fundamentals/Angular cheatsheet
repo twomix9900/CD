@@ -7,4 +7,56 @@ ng build --watch
 Make sure mongoose daemon is running if you want to use mongoose + mongoDB:
 sudo mongod
 
+----
 
+Creating new service:
+1. Create
+// in the component folder
+ng g s SERVICENAME (eg ng g s http)
+
+2. Register
+// still in the component folder
+update app.module.ts providers array with the name of service (eg HttpService)
+import service (eg import { HttpService } from './http.service';)
+
+3. NAMEClient
+// still in the component folder
+in app.module.ts, add import { HttpClientModule } from '@angular/common/http';
+then add HttpClientModule to imports. Imports should look something like this now:
+  imports: [
+    BrowserModule,
+    HttpClientModule
+  ],
+
+4. Dependency Injection
+in http.service.ts (because we created http service and it depends on httpclient)
+Add import { HttpClient } from '@angular/common/http'; to top
+Update constructor: constructor(private _http: HttpClient){}
+In app.component.ts, add import { HttpService } from './http.service';
+update 
+
+  export class AppComponent {
+    title = 'app';
+  }: 
+  to
+  export class AppComponent {
+    title = 'app';
+    constructor(private _httpService: HttpService){}
+  }
+
+FETCH DATA FROM mongoDB
+in /app/http.service.ts:
+
+  export class HttpService {
+
+    constructor(private _http: HttpClient) {
+      this.getTasks();
+    }
+
+    getTasks() {
+      // our http response is an Observable, store it in a variable
+      let tempObservable = this._http.get('/tasks');
+      // subscribe to the Observable and provide the code we would like to do with our data from the response
+      tempObservable.subscribe(data => console.log("Got our tasks!", data));
+    }
+  }
