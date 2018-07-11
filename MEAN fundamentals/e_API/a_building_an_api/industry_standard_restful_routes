@@ -1,0 +1,18 @@
+Action 	Client HTTP Request 	Server Routing Rule
+Retrieve all widgets 	'GET' http://company.com/widgets 	app.get("/widgets", (req, res) => {
+
+})
+Retrieve 1 widget with the id of 7 	'GET' http://company.com/widgets/7 	app.get("/widgets/:id", (req, res) => {
+
+})
+Create a widget 	'POST' http://company.com/widgets
+(New Widget Object Included) 	app.post("/widgets", (req, res) => {
+
+})
+Update 1 widget with the id of 7 	'PUT' http://company.com/widgets/7
+(Updated Widget Object Included) 	app.put("/widgets/:id", (req, res) => {
+
+})
+Delete 1 widget with the id of 7 	'DELETE' http://company.com/widgets/7 	app.delete("/widgets/:id", (req, res) => {
+
+})

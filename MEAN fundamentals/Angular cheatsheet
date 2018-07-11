@@ -1,0 +1,10 @@
+Create new Angular app:
+ng new public
+
+Go to the root angular app folder then initiate build:
+ng build --watch
+
+Make sure mongoose daemon is running if you want to use mongoose + mongoDB:
+sudo mongod
+
+
