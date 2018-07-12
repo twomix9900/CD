@@ -1,0 +1,21 @@
+<div style="text-align:center">
+  <h1>Restful Tasks API</h1>
+</div>
+<div style="text-align:center">
+  <h3>All the tasks:</h3>
+  <input type="button" value="GET ALL TASKS" (click)="getTasksFromService()">
+  <ul style="display:table; margin: 0 auto;" *ngIf="_showTasks">
+    <li *ngFor="let task of _tasksArr">
+      {{ task.title }}
+      <input type="button" value="show" (click)="showTaskDetails(task)">
+    </li>
+  </ul>
+  <hr>
+  <div style="text-align:center;">
+    <h3>Task details:</h3>
+    <div *ngIf="_showTaskDetails">
+      <h4>{{ _taskDetails.title }}</h4>
+      <h4>{{ _taskDetails.description }}</h4>
+    </div>
+  </div>
+</div>

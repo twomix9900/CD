@@ -1,0 +1,12 @@
+.instance {
+  border: 1px solid black;
+  width: 250px;
+  display: inline-block;
+  padding-bottom: 20px;
+}
+
+.adventureLog {
+  border: 1px solid black;
+  width: 1000px;
+  margin: 30px auto;
+}

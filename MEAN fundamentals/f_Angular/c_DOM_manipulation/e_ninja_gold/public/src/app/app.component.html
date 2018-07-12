@@ -1,0 +1,55 @@
+<div style="text-align:center">
+  <h1>Restful Tasks API</h1>
+</div>
+<div style="text-align:center">
+  <!-- <h3>All the tasks:</h3>
+  <input type="button" value="GET ALL TASKS" (click)="getTasksFromService()">
+  <ul style="display:table; margin: 0 auto;" *ngIf="_showTasks">
+    <li *ngFor="let task of _tasksArr">
+      {{ task.title }}
+      <input type="button" value="show" (click)="showTaskDetails(task)">
+    </li>
+  </ul>
+  <hr>
+  <div style="text-align:center;">
+    <h3>Task details:</h3>
+    <div *ngIf="_showTaskDetails">
+      <h4>{{ _taskDetails.title }}</h4>
+      <h4>{{ _taskDetails.description }}</h4>
+    </div>
+  </div> -->
+
+
+  <h3>Total Gold: 72</h3>
+  <div class="row">
+    <div class="farm instance">
+      <h4>Farm</h4>
+      <p>Earns 2-5 gold</p>
+      <input type="button" value="Farm!">
+    </div>
+    <div class="cave instance">
+      <h4>Cave</h4>
+      <p>Earns 5-10 gold</p>
+      <input type="button" value="Cave!">
+    </div>
+    <div class="house instance">
+      <h4>House</h4>
+      <p>Earns 7-15 gold</p>
+      <input type="button" value="House!">
+    </div>
+    <div class="casino instance">
+      <h4>Casino</h4>
+      <p>Earn or lose up to 100 gold</p>
+      <input type="button" value="Casino!">
+    </div>
+  </div>
+  <div class="adventureLog">
+    <h4>Adventure Log</h4>
+    <p>You earned 10 gold at the cave.</p>
+    <p>You earned 20 gold at the farm.</p>
+  </div>
+  <input type="button" value="reset" (click)="reset()">
+  <input type="button" value="farm" (click)="farm()">
+</div>
+
+

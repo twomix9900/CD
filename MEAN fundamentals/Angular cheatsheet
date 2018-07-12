@@ -17,7 +17,7 @@ ng g s SERVICENAME (eg ng g s http)
 2. Register
 // still in the component folder
 update app.module.ts providers array with the name of service (eg HttpService)
-import service (eg import { HttpService } from './http.service';)
+   // import service (eg import { HttpService } from './http.service';)
 
 3. NAMEClient
 // still in the component folder
@@ -27,6 +27,7 @@ then add HttpClientModule to imports. Imports should look something like this no
     BrowserModule,
     HttpClientModule
   ],
+  providers: [HttpService],
 
 4. Dependency Injection
 in http.service.ts (because we created http service and it depends on httpclient)
