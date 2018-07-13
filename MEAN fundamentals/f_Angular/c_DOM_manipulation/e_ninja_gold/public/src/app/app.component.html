@@ -20,36 +20,34 @@
   </div> -->
 
 
-  <h3>Total Gold: 72</h3>
+  <h3>Total Gold: {{_gold}}</h3>
   <div class="row">
     <div class="farm instance">
       <h4>Farm</h4>
       <p>Earns 2-5 gold</p>
-      <input type="button" value="Farm!">
+      <input type="button" value="Farm!" (click)="farm()">
     </div>
     <div class="cave instance">
       <h4>Cave</h4>
       <p>Earns 5-10 gold</p>
-      <input type="button" value="Cave!">
+      <input type="button" value="Cave!" (click)="cave()">
     </div>
     <div class="house instance">
       <h4>House</h4>
       <p>Earns 7-15 gold</p>
-      <input type="button" value="House!">
+      <input type="button" value="House!" (click)="house()">
     </div>
     <div class="casino instance">
       <h4>Casino</h4>
       <p>Earn or lose up to 100 gold</p>
-      <input type="button" value="Casino!">
+      <input type="button" value="Casino!" (click)="casino()">
     </div>
   </div>
   <div class="adventureLog">
     <h4>Adventure Log</h4>
-    <p>You earned 10 gold at the cave.</p>
-    <p>You earned 20 gold at the farm.</p>
+    <p *ngFor="let event of _events">{{ event }}</p>
   </div>
   <input type="button" value="reset" (click)="reset()">
-  <input type="button" value="farm" (click)="farm()">
 </div>
 
 

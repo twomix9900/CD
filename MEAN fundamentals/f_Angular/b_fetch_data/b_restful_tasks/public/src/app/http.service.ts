@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
+  id: string;
+
   constructor(private _http: HttpClient) {
   };
 
@@ -12,7 +14,16 @@ export class HttpService {
     return this._http.get('/tasks');
   };
 
-  getPokemon() {
-    return this._http.get('https://pokeapi.co/api/v2/pokemon/1/');
+  addTask(newTask){
+    return this._http.post('/new/', newTask);
   };
+
+  deleteTask(taskId){
+    return this._http.delete('/remove/' + taskId);
+  };
+
+  editTask(task){
+    return this._http.put('/update/' + task._id, task);
+  }
+
 }

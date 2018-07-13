@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
+  public id: string;
+
   constructor(private _http: HttpClient) {
   };
 
@@ -12,21 +14,20 @@ export class HttpService {
     return this._http.post('/reset/');
   };
 
-  farm(id) {
-    console.log('id in service = ', id)
-    return this._http.put('/farm/:' + id);
+  farm() {
+    return this._http.put('/farm/' + this.id);
   };
 
-  cave(id) {
-    return this._http.put('/cave/:' + id);
+  cave() {
+    return this._http.put('/cave/' + this.id);
   };
 
-  house(id) {
-    return this._http.put('/house/:' + id);
+  house() {
+    return this._http.put('/house/' + this.id);
   };
   
-  casino(id) {
-    return this._http.put('/casino/:' + id);
+  casino() {
+    return this._http.put('/casino/' + this.id);
   };
 
 }

@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Rate my cakes</h1>
+  <div>
+    <h4>Submit a cake to be rated</h4>
+    <form (submit)="submitNewCake()">
+      <input placeholder="Baker Name" type="text" class="validate" name="baker" [(ngModel)]="_newCake.baker">
+      <input placeholder="Image url" type="text" class="validate" name="image" [(ngModel)]="_newCake.image">
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+    </form>
+  </div>
+</div>

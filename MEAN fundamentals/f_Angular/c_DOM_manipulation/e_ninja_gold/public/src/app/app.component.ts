@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+const params = new HttpParams()
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
   _gold:number;
   _id:string;
-  // _tasks: object;
-  // _pokemon: object;
-  // _pokemonAbilities: object;
-  // _tasksArr:any[];
-  // _showTasks:boolean = false;
-  // _showTaskDetails:boolean = false;
-  // _taskDetails:object;
+  _events:any[];
 
   constructor(private _httpService: HttpService, private _http: HttpClient ){
     // generally constructor is reserved for dependency injections
@@ -32,49 +26,46 @@ export class AppComponent implements OnInit {
     let goldObservable = this._httpService.reset();
     goldObservable.subscribe((data) => {
       console.log("Got data back for reset", data);
-      this._id = data._id;
-      this._gold = data.gold;
+      this._id = data.session._id;
+      this._gold = data.session.gold;
+      this._httpService.id = data.session._id;
+      this._events = [];
     })
   };
 
   farm() {
-    let goldObservable = this._httpService.farm(this._id);
+    let goldObservable = this._httpService.farm();
     goldObservable.subscribe((data) => {
       console.log("Got data back for farm", data);
-      this._id = data._id;
-      this._gold = data.gold;
+      this._gold = data.updatedSession.gold;
+      this._events.push('You earned ' + data.goldFromFarm + ' gold at the farm.')
     })
   };
 
-  // getTasksFromService() {
-  //   this._showTasks = true;
-  //   let tempTasksObservable = this._httpService.getTasks();
-  //   tempTasksObservable.subscribe((data) => {
-  //     console.log("Got our tasks from local DB!", data);
-  //     this._tasks = data;
-  //     this._tasksArr = data.tasks;
-  //     console.log("Putting data into this.tasks ::: ", this._tasks)
-  //   });
-  // };
+  cave() {
+    let goldObservable = this._httpService.cave();
+    goldObservable.subscribe((data) => {
+      console.log("Got data back for cave", data);
+      this._gold = data.updatedSession.gold;
+      this._events.push('You earned ' + data.goldFromCave + ' gold at the cave.')
+    })
+  };
 
-  // getPokemonFromService() {
-  //   let tempPokemonObservable = this._httpService.getPokemon();
-  //   tempPokemonObservable.subscribe((data) => {
-  //     console.log("Bulbasaur = ", data);
-  //     this._pokemon = data;
-  //     console.log("Bulbasaur has this ability: ", this._pokemon.abilities[0].ability.name);
-  //     let tempAbilityPokemanz = this._http.get('https://pokeapi.co/api/v2/ability/34/');
-  //     tempAbilityPokemanz.subscribe((pokemanz) => {
-  //       console.log("This many pokemanz also have chlorophyll: ", pokemanz.pokemon.length);
-  //       this._pokemonAbilities = pokemanz;
-  //     })
-  //   });
-  // };
+  house() {
+    let goldObservable = this._httpService.house();
+    goldObservable.subscribe((data) => {
+      console.log("Got data back for house", data);
+      this._gold = data.updatedSession.gold;
+      this._events.push('You earned ' + data.goldFromHouse + ' gold at the house.')
+    })
+  };
 
-  // showTaskDetails(task: object) {
-  //   console.log('task from html = ', task);
-  //   this._showTaskDetails = true;
-  //   this._taskDetails = task;
-  // }
-
+  casino() {
+    let goldObservable = this._httpService.casino();
+    goldObservable.subscribe((data) => {
+      console.log("Got data back for casino", data);
+      this._gold = data.updatedSession.gold;
+      data.goldFromCasino < 0 ? this._events.push('You lost ' + -data.goldFromCasino + ' gold at the casino.') : this._events.push('You earned ' + data.goldFromCasino + ' gold at the casino.')
+    })
+  };
 }

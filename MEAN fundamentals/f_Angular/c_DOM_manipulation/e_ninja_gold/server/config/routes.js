@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 Gold = mongoose.model('Gold');
 const gold = require('../controllers/golds.js')
 module.exports =  app => {
-  // app.get('/gold/', (req, res) => {
-  //   gold.getGold(req, res);
-  // });
-  
   app.put('/farm/:id', (req, res) => {
     gold.farm(req, res);
   });

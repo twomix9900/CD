@@ -2,12 +2,26 @@
   <h1>Restful Tasks API</h1>
 </div>
 <div style="text-align:center">
+  <form style="border: 1px solid black; width: 500px; margin: 0 auto; padding: 50px 0;" (submit)="onSubmit()">
+    <input type="text" name="newTask.title" [(ngModel)]="_newTask.title" />
+    <input type="text" name="newTask.description" [(ngModel)]="_newTask.description" />
+    <input type="submit" value="Create Task" />
+  </form>
   <h3>All the tasks:</h3>
   <input type="button" value="GET ALL TASKS" (click)="getTasksFromService()">
   <ul style="display:table; margin: 0 auto;" *ngIf="_showTasks">
     <li *ngFor="let task of _tasksArr">
-      {{ task.title }}
+      <p>{{ task.title }}</p>
+      <input type="button" value="delete" (click)="deleteTask(task._id)">
+      <input type="button" value="edit" (click)="showEditTaskPane()">
       <input type="button" value="show" (click)="showTaskDetails(task)">
+      <div *ngIf="_showEditPane">
+        <form style="border: 1px solid black; width: 500px; margin: 0 auto; padding: 50px 0;" (submit)="submitEditTask(task)">
+          <input type="text" name="task.title" [(ngModel)]="task.title" />
+          <input type="text" name="task.description" [(ngModel)]="task.description" />
+          <input type="submit" value="Update Task" />
+        </form>
+      </div>
     </li>
   </ul>
   <hr>

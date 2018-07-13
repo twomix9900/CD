@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-Dog = mongoose.model('Dog');
 var dog = require('../controllers/dogs.js')
 module.exports = function (app) {
   app.get('/', function (req, res) {

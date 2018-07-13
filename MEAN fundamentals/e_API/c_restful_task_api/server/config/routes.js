@@ -20,5 +20,5 @@ module.exports =  app => {
 
   app.put('/:id/', (req, res) => {
     task.updateTask(req, res);
-  })
+  });
 }

@@ -8,14 +8,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
   _tasks: object;
-  _pokemon: object;
-  _pokemonAbilities: object;
   _tasksArr:any[];
   _showTasks:boolean = false;
   _showTaskDetails:boolean = false;
   _taskDetails:object;
+  _newTask:object;
+  _showEditPane:boolean = false;
 
   constructor(private _httpService: HttpService, private _http: HttpClient ){
     // generally constructor is reserved for dependency injections
@@ -23,7 +22,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // this runs right after constructor, you must import { OnInit } from @angular/core and also change export class to export class AppComponent implements OnInit
-  }
+    this._newTask = { title: "", description: "" }
+  };
 
   getTasksFromService() {
     this._showTasks = true;
@@ -36,24 +36,41 @@ export class AppComponent implements OnInit {
     });
   };
 
-  getPokemonFromService() {
-    let tempPokemonObservable = this._httpService.getPokemon();
-    tempPokemonObservable.subscribe((data) => {
-      console.log("Bulbasaur = ", data);
-      this._pokemon = data;
-      console.log("Bulbasaur has this ability: ", this._pokemon.abilities[0].ability.name);
-      let tempAbilityPokemanz = this._http.get('https://pokeapi.co/api/v2/ability/34/');
-      tempAbilityPokemanz.subscribe((pokemanz) => {
-        console.log("This many pokemanz also have chlorophyll: ", pokemanz.pokemon.length);
-        this._pokemonAbilities = pokemanz;
-      })
-    });
-  };
-
   showTaskDetails(task: object) {
     console.log('task from html = ', task);
     this._showTaskDetails = true;
     this._taskDetails = task;
+  };
+
+  onSubmit() {
+    let tempTaskObservable = this._httpService.addTask(this._newTask);
+    tempTaskObservable.subscribe((data) => {
+      console.log("Got the new task back from DB!", data);
+      this._newTask = { title: "", description: "" };
+    })
+  };
+
+  deleteTask(taskId) {
+    console.log(taskId)
+    let tempTaskObservable = this._httpService.deleteTask(taskId);
+    tempTaskObservable.subscribe((data) => {
+      console.log("Got the new task back from DB!", data);
+      this.getTasksFromService();
+    })
+  }
+
+  showEditTaskPane() {
+    this._showEditPane = true;
+  }
+
+  submitEditTask(task) {
+    console.log('task in submitedittask before being sent to db:', task)
+    let tempTaskObservable = this._httpService.editTask(task);
+    tempTaskObservable.subscribe((data) => {
+      console.log("submitEditTask data from DB:", data);
+      this._showEditPane = false;
+      this.getTasksFromService();
+    })
   }
 
 }

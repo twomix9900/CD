@@ -1,4 +1,3 @@
-// All necessary requires, such as the Quote model.
 const mongoose = require('mongoose');
 Dog = mongoose.model('Dog');
 module.exports = {

@@ -9,6 +9,13 @@ sudo mongod
 
 ----
 
+Create new component
+
+ng generate component task
+
+
+-------
+
 Creating new service:
 1. Create
 // in the component folder
