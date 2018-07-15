@@ -1,5 +1,5 @@
 Create new Angular app:
-ng new public
+ng new public --routing (routing flag to enable angular routing)
 
 Go to the root angular app folder then initiate build:
 ng build --watch
@@ -16,18 +16,35 @@ ng generate component task
 
 -------
 
+
+Routing:
+
+ng new sample-app --routing
+Then place Angular specific HTML tag <router-outlet></router-outlet> within the template. 
+
+Don't forget to mod server.js file:
+
+...
+// this route will be triggered if any of the routes above did not match
+app.all("*", (req,res,next) => {
+  res.sendFile(path.resolve("./public/dist/public/index.html"))
+});
+...
+
+-------
+
+
+
 Creating new service:
 1. Create
 // in the component folder
 ng g s SERVICENAME (eg ng g s http)
 
 2. Register
-// still in the component folder
 update app.module.ts providers array with the name of service (eg HttpService)
    // import service (eg import { HttpService } from './http.service';)
 
-3. NAMEClient
-// still in the component folder
+3. NAMEClient <--- THIS AND ONWARDS IS TO ENABLE HTTP FUNCTIONALITY, OPTIONAL.
 in app.module.ts, add import { HttpClientModule } from '@angular/common/http';
 then add HttpClientModule to imports. Imports should look something like this now:
   imports: [

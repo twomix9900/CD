@@ -4,15 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HttpService } from './http.service';
 import { FormsModule } from '@angular/forms';
-import { AddCakeComponent } from './add-cake/add-cake.component';
-import { CakesComponent } from './cakes/cakes.component';
+import { AllCakesComponent } from './all-cakes/all-cakes.component';
 import { CakeDetailsComponent } from './cake-details/cake-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddCakeComponent,
-    CakesComponent,
+    AllCakesComponent,
     CakeDetailsComponent,
   ],
   imports: [

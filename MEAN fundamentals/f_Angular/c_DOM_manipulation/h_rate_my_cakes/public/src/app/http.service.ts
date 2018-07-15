@@ -13,10 +13,15 @@ export class HttpService {
     return this._http.post('/cake/add', cake);
   };
 
+  addReview(cake) {
+    return this._http.post('/cake/review/add/' + cake.id, cake);
+  };
+
   getAllCakes() {
-    console.log('hi')
     return this._http.get('/cakes');
   };
+
+
 
   // getTasks() {
   //   return this._http.get('/tasks');

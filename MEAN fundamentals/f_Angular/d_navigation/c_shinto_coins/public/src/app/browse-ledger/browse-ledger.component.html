@@ -1,0 +1,19 @@
+<h1>Browse Ledger</h1>
+<h3>Here are all your transactions so far:</h3>
+<table>
+  <tr  style="text-align: left; width: 100px;">
+    <th>Action</th>
+    <th>Quantity</th>
+    <th>Value</th>
+  </tr>
+<div *ngFor="let entry of _ledger; let i = index">
+  <tr style="text-align: left; width: 100px;">
+    <td>{{ entry.action }}</td>
+    <td>{{ entry.quantity }}</td>
+    <td>{{ entry.value }}</td>
+    <td>
+      <button [routerLink]="['/ledger-details', i]">DETAILS</button>
+    </td>
+  </tr>
+</div>
+</table> 

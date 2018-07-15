@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css',]
 })
 export class AppComponent implements OnInit {
   _newCake:object;
-  // _allCakes:any[];
-  // _tasksArr:any[];
+  _allCakes:any[];
+  _cake:object;
 
   constructor(private _httpService: HttpService, private _http: HttpClient ){
     // generally constructor is reserved for dependency injections
@@ -35,15 +35,24 @@ export class AppComponent implements OnInit {
     let tempGetCakesObservable = this._httpService.getAllCakes();
     tempGetCakesObservable.subscribe((data) => {
       console.log("Got all cakes from the db", data);
-      this._allCakes = data;
+      this._allCakes = data['cakes'];
     });
   }
 
-  // getTasksFromService() {
-  //   let tempTasksObservable = this._httpService.getTasks();
-  //   tempTasksObservable.subscribe((data) => {
-  //     console.log("Got our tasks from local DB!", data);
-  //     this._tasksArr = data.tasks;
-  //   });
-  // };
+  getReviewDetails(data) {
+    console.log('submitNewReview invoked', data);
+    let tempNewCakeObservable = this._httpService.addReview(data);
+    tempNewCakeObservable.subscribe((data) => {
+      console.log("New review received from DB: ", data);
+      
+      this.getCakes();
+    });
+  }
+
+  getCakeDetails(data) {
+    this._cake = data;
+  }
+
+
+
 }

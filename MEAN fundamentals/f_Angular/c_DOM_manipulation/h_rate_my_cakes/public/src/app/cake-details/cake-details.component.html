@@ -1,3 +1,11 @@
-<p>
-  cake-details works!
-</p>
+<h3>Baked by {{ cakeToShow.baker }}</h3>
+<div class="row">
+  <img src="{{ cakeToShow.image }}" style="width: 400px; display: inline-block">
+  <div class="review" style="display: inline-block; border: 2px solid black; vertical-align: top; margin-left: 50px;">
+    <div *ngFor="let review of cakeToShow.reviews" style="border: 1px solid green;">
+      <p> {{ review.rating }}  star(s)</p>
+      <p> {{ review.review }} </p>
+
+    </div>
+  </div>
+</div>
