@@ -1,0 +1,14 @@
+<h4>We have quotes by:</h4>
+<table style="width:100%">
+  <tr>
+    <th>Author</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let author of _allAuthors">
+    <td>{{ author.name }}</td>
+    <td>
+      <button [routerLink]="['/edit', author._id]">EDIT</button>
+      <button (click)="deleteAuthor(author)">DELETE</button>
+    </td>
+  </tr>
+</table>

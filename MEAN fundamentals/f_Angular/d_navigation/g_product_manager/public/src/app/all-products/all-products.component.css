@@ -1,0 +1,11 @@
+img {
+  width: 200px;
+}
+
+div {
+  display: block;
+}
+
+.product {
+  border: 1px solid black;
+}

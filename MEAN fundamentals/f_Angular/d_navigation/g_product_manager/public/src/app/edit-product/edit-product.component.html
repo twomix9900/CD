@@ -1,0 +1,9 @@
+<div *ngFor="let error of _errors">
+  <p>{{ error.message }}</p>
+</div>
+<form (submit)=editProduct()>
+  <div>Title: <input type="text" [(ngModel)]="_product.title" name="title"></div>
+  <div>Image: <input type="text" [(ngModel)]="_product.image" name="image"></div>
+  <div>Price: <input type="text" [(ngModel)]="_product.price" name="price"></div>
+  <button type="submit">Update Product</button>
+</form>
