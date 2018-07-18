@@ -1,0 +1,18 @@
+<h1>Movies List</h1>
+<button (click)="showAddMovieComponent()">Add a New Movie</button>
+<table style="width:100%">
+  <tr>
+    <th>Movie Title</th>
+    <th>Actions</th>
+    <th>Average Rating</th>
+  </tr>
+  <tr *ngFor="let movie of _movies">
+    <td>{{ movie.title }}</td>
+    <td>
+      <button [routerLink]="['/movies', movie._id]">Read Reviews</button>
+      <button [routerLink]="['/movies', movie._id, 'review']">Write Review</button>
+    </td>
+    <td>{{ movie.rating }}</td>
+  </tr>
+</table> 
+<app-add-movie *ngIf="_showAddMovie" (HideAddMovieComponent)="hideAddMovieComponent($event)"></app-add-movie>

@@ -1,0 +1,19 @@
+<h1>Add a review for {{ _movie?.title }}</h1>
+<form (submit)=addReview()>
+  <div *ngFor="let error of _errors">
+    <p style="color: red">{{ error }}</p>
+  </div>
+  <div>
+    Your Name: <input type="text" [(ngModel)]="_review['name']" name="name" #name="ngModel" minlength="3" ng-reflect-name="name" class="ng-valid ng-invalid" required>
+  </div>
+  <div>
+    Stars: <input type="number" [(ngModel)]="_review['stars']" name="stars" min=1 max=5 #stars="ngModel" ng-reflect-name="stars" class="ng-valid ng-invalid" required>
+  </div>
+  <div>
+    Your Review: <textarea name="review" [value]="_review['review']" (input)="_review['review'] = $event.target.value;" placeholder="Cannot be empty"></textarea>
+  </div>
+  <div>
+    <button type="submit" *ngIf="name.valid && stars.valid">Add Review</button>
+    <button [routerLink]="['/movies']">Cancel</button>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+<h1>Movies List</h1>
+<button [routerLink]="['/movies', 'new']">Add a New Movie</button>
+<table style="width:100%">
+  <tr>
+    <th>Movie Title</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let movie of _movies">
+    <td>{{ movie.title }}</td>
+    <td>
+      <button [routerLink]="['/movies', movie._id]">Read Reviews</button>
+      <button [routerLink]="['/movies', movie._id, 'review']">Write Review</button>
+    </td>
+  </tr>
+</table> 
