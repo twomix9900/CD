@@ -1,0 +1,29 @@
+{
+  "name": "z_beeriokart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "express": "^4.16.3",
+    "hammerjs": "^2.0.8",
+    "mongoose": "^5.2.4",
+    "mongoose-unique-validator": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twomix9900/beeriokart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twomix9900/beeriokart/issues"
+  },
+  "homepage": "https://github.com/twomix9900/beeriokart#readme"
+}
