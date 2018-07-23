@@ -9,8 +9,8 @@ export class HttpService {
   constructor(private _http: HttpClient) {
   }
 
-  getMovies() {
-    return this._http.get('/all-movies');
+  login(user: Object) {
+    return this._http.post('/loginuser', user);
   }
 
 

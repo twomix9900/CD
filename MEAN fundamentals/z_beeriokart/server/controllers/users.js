@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 Race = mongoose.model('Race');
 User = mongoose.model('User');
 Group = mongoose.model('Group');
@@ -39,13 +40,25 @@ module.exports = {
   },
 
   loginUser: (req, res) => {
-    console.log('loginUser invoked');
-    User.find({ _id: req.params.id }, (err, user) => {
+    console.log('loginUser invoked', req.body);
+      User.findOne( { email: req.body.email } , (err, user) => {
       if (err) {
-        console.log("error finding user", err);
-        res.json({ error: err });
+        console.log('error with finding user', err);
+        res.json({ error: err })
+      } else if (!user) {
+        res.json({ error: "Invalid user credentials" })
       } else {
-        res.json({ user: user });
+        console.log('user after', user)
+        user.comparePassword(req.body.password, (err, isMatch)  => {
+          if (err) {
+            console.log('error checking pw', err);
+            res.json({ error: err });
+          } else if (isMatch) { 
+            res.json({ user: user });
+          } else {
+            res.json({ error: "Invalid user credentials" });
+          }
+        });
       }
     });
   },

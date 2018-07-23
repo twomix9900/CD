@@ -1,17 +1,18 @@
 const user = require('../controllers/users.js');
 const group = require('../controllers/groups.js');
 const race = require('../controllers/races.js');
+const path = require('path');
 
 module.exports = (app) => {
   app.get('/users', (req, res) => {
     user.getUsers(req, res);
   });  
 
-  app.post('/user', (req, res) => {
+  app.post('/registeruser', (req, res) => {
     user.registerUser(req, res);
   });
 
-  app.get('/user/:id', (req, res) => {
+  app.post('/loginuser', (req, res) => {
     user.loginUser(req, res);
   });
 
@@ -54,6 +55,9 @@ module.exports = (app) => {
   app.delete('/group/:id', (req, res) => {
     group.deleteGroup(req.res);
   });
+
+  app.all("*", (req,res,next) => { res.sendFile(path.resolve("./public/dist/public/index.html")) });
+
 
   // app.post('/movie', (req, res) => {
   //   movie.addMovie(req, res);

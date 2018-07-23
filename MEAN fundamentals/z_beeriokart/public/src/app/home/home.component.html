@@ -1,30 +1,78 @@
-<!-- <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Material App</span>
-    <span class="example-spacer"></span>
-    <mat-icon class="example-icon">favorite</mat-icon>
-    <mat-icon class="example-icon">delete</mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="accent">LIKE</button>
-    <button mat-raised-button color="accent">SHARE</button>
-  </mat-card-actions>
-</mat-card> -->
-
-<!-- <button mat-button>My Button</button> -->
+<mat-tab-group color="accent">
+  <mat-tab label="Login">
+    <mat-card class="login-card">
+      <mat-card-content>
+        <form class="login-form">
+          <table class="login-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="login-full-width">
+                  <input matInput 
+                  placeholder="Email" 
+                  type="email" 
+                  name="email" 
+                  required
+                  [(ngModel)]="_user['email']"
+                  #email="ngModel"
+                  minlength="3"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="login-full-width">
+                  <input 
+                  matInput 
+                  placeholder="Password" 
+                  type="password" 
+                  name="password" 
+                  required
+                  [(ngModel)]="_user['password']"
+                  #password="ngModel"
+                  minlength="6"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="email.valid && password.valid">Login</button>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="!email.valid || !password.valid" disabled>Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+  <!-- <mat-tab label="Register">
+    <mat-card class="register-card">
+      <mat-card-content>
+        <form class="register-form">
+          <table class="register-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Email" formControlName="_email" name="email" required>
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="register-full-width">
+                  <input matInput placeholder="Password" formControlName="_password" type="password" name="password" required>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="register()" color="accent">Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab> -->
+</mat-tab-group>
