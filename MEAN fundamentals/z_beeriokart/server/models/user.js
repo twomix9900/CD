@@ -4,12 +4,12 @@ const uniqueValidator = require('mongoose-unique-validator');
 const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 const RaceSchema = require('./race.js');
+const GroupSchema = require('./group.js');
 
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "An email is required"],
-    minlength: [3, "Email must be at least 3 characters long"],
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Enter a valid email address'],
     unique: true,
   },
@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema({
     minlength: [6, "Password name must be at least 6 characters long"]
   },
   races: { type: [RaceSchema] },
+  groups: { type: [GroupSchema] },
 },{ timestamps: true });
 
 UserSchema.plugin(uniqueValidator, { message: 'This {PATH} is already in use' });

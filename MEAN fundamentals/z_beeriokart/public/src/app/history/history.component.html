@@ -1,0 +1,57 @@
+<!-- <div *ngFor="let race of _user?.races">
+  <p>{{ race }}</p>
+</div> -->
+
+<mat-accordion>
+  <!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel> -->
+
+  <!-- <mat-expansion-panel (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+    <mat-expansion-panel-header *ngFor="let race of _user?.races; let i = index" [attr.data-index]="i">
+      <mat-panel-title>
+        Race {{ i + 1 }}
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel> -->
+
+  <mat-expansion-panel *ngFor="let race of _user?.races; let i = index" 
+                        [attr.data-index]="i"
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                        >
+    <mat-expansion-panel-header >
+    <mat-panel-title>
+      Race {{ i + 1 }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ panelOpenState ?  'Winner: ' + race?.winner : race?.createdAt | date:'MM-dd-yy hh:mm:ss' }}
+    </mat-panel-description>
+    </mat-expansion-panel-header>
+      <p>{{race?.platform}} {{ race?.course }}</p>
+      <div *ngFor="let user of race.users; let j = index" [attr.data-index]="j">
+        <p>Racer {{ j }}: {{ user }}</p>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  

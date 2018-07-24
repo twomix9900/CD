@@ -1,0 +1,160 @@
+<mat-toolbar color="primary" *ngIf="!(_isLoggedIn$ | async)">
+  <span>BeerioKart Tracker</span>
+</mat-toolbar>
+<mat-tab-group color="primary">
+  <mat-tab label="Login" class="login-tab">
+    <mat-card class="login-card">
+      <mat-card-content >
+        <form class="login-form">
+          <table class="login-full-width" cellspacing="0">
+            <tr>
+              <p class="validation">
+                {{ _loginErrorMessage }}
+              </p>
+              <td>
+                <mat-form-field class="login-full-width">
+                  <input matInput 
+                  placeholder="Email" 
+                  type="email" 
+                  name="email" 
+                  required
+                  [(ngModel)]="_loginUser['email']"
+                  #loginEmail="ngModel"
+                  minlength="3"
+                  class="ng-valid ng-invalid"
+                  [email]="true"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field class="login-full-width">
+                  <input 
+                  matInput 
+                  placeholder="Password" 
+                  type="password" 
+                  name="password" 
+                  required
+                  [(ngModel)]="_loginUser['password']"
+                  #loginPassword="ngModel"
+                  minlength="6"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="loginEmail.valid && loginPassword.valid">Login</button>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="!loginEmail.valid || !loginPassword.valid" disabled>Login</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+
+
+  <mat-tab label="Register">
+    <mat-card class="registration-card">
+      <mat-card-content>
+        <form class="registration-form">
+          <table class="registration-full-width" cellspacing="0">
+            <tr>
+              <p *ngIf="!regEmail.valid" class="validation">
+                Email must be in valid format
+              </p>
+              <p class="validation">
+                {{ _regErrorMessages['email'] }}
+              </p>
+              <td>
+                <mat-form-field class="registration-full-width">
+                  <input matInput 
+                  placeholder="Email" 
+                  type="email" 
+                  name="email" 
+                  required
+                  [(ngModel)]="_regUser['email']"
+                  [email]="true"
+                  #regEmail="ngModel"
+                  minlength="3"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <p *ngIf="!regScreenName.valid" class="validation">
+                SN must be at least 3 characters long
+              </p>
+              <p class="validation">
+                {{ _regErrorMessages['screenName'] }}
+              </p>
+              <td>
+                <mat-form-field class="registration-full-width">
+                  <input 
+                  matInput 
+                  placeholder="Screen Name" 
+                  type="text" 
+                  name="screenName" 
+                  required
+                  [(ngModel)]="_regUser['screenName']"
+                  #regScreenName="ngModel"
+                  minlength="3"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <p *ngIf="!regPassword.valid" class="validation">
+                PW must be at least 6 characters long
+              </p>
+              <td>
+                <mat-form-field class="registration-full-width">
+                  <input 
+                  matInput 
+                  placeholder="Password" 
+                  type="password" 
+                  name="password" 
+                  required
+                  [(ngModel)]="_regUser['password']"
+                  #regPassword="ngModel"
+                  minlength="6"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <p *ngIf="_regUser.password != _regUser.passwordConfirm" class="validation">
+                PW must be matching
+              </p>
+              <td>
+                <mat-form-field class="registration-full-width">
+                  <input 
+                  matInput 
+                  placeholder="Confirm Password" 
+                  type="password" 
+                  name="passwordConfirm" 
+                  required
+                  [(ngModel)]="_regUser['passwordConfirm']"
+                  #regPasswordConfirm="ngModel"
+                  minlength="6"
+                  class="ng-valid ng-invalid"
+                  >
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+        </form>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="register()" color="accent" *ngIf="regEmail.valid && regPassword.valid && regPasswordConfirm.valid && regScreenName.valid && _regUser.password == _regUser.passwordConfirm">Register</button>
+        <button mat-raised-button (click)="register()" color="accent" *ngIf="!regEmail.valid || !regPassword.valid || !regPasswordConfirm.valid || !regScreenName.valid || _regUser.password != _regUser.passwordConfirm" disabled>Register</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>

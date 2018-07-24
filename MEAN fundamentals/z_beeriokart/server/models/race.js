@@ -14,7 +14,7 @@ const RaceSchema = new mongoose.Schema({
     required: [true, "Platform is required"],
   },
   winner: {
-    type: UserSchema,
+    type: String,
     require: [true, "Winner for this race is required"],
   },
   group: { type: GroupSchema },

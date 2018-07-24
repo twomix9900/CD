@@ -4,7 +4,7 @@ const UserSchema = require('./user.js');
 
 const GroupSchema = new mongoose.Schema({
   users: {
-    type: [UserSchema]
+    type: [String]
   },
 }, { timestamps: true } )
 mongoose.model('Group', GroupSchema);

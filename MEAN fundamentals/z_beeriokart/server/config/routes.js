@@ -8,27 +8,35 @@ module.exports = (app) => {
     user.getUsers(req, res);
   });  
 
-  app.post('/registeruser', (req, res) => {
+  app.post('/registerUser', (req, res) => {
     user.registerUser(req, res);
   });
 
-  app.post('/loginuser', (req, res) => {
+  app.post('/loginUser', (req, res) => {
     user.loginUser(req, res);
+  });
+
+  app.post('/user/:id', (req, res) => {
+    user.getUserInfo(req, res);
   });
 
   app.delete('/user/:id', (req, res) => {
     user.deleteUser(req, res);
   });
 
-  app.post('/race/:userid', (req, res) => {
+  app.post('/race/:userId', (req, res) => {
     race.initRace(req, res);
   });
 
-  app.put('/race/:raceid/user/:userid', (req, res) => {
+  app.put('/race/:raceId/user/:userId', (req, res) => {
     race.addUserToRace(req, res);
   });
 
-  app.put('/race/:raceid/group/:groupid', (req, res) => {
+  app.put('/user/:userId/race/:raceId', (req, res) => {
+    race.addRaceToUser(req, res);
+  });
+
+  app.put('/race/:raceId/group/:groupId', (req, res) => {
     race.addGroupToRace(req, res);
   });
 
@@ -44,11 +52,11 @@ module.exports = (app) => {
     group.getGroups(req, res);
   });
 
-  app.post('/group', (req, res) => {
+  app.post('/group/:userId', (req, res) => {
     group.initGroup(req, res);
   });
 
-  app.put('/group/:groupid/user/:userid', (req, res) => {
+  app.put('/group/:groupId/user/:userId', (req, res) => {
     group.addUserToGroup(req, res);
   });
 
@@ -57,25 +65,4 @@ module.exports = (app) => {
   });
 
   app.all("*", (req,res,next) => { res.sendFile(path.resolve("./public/dist/public/index.html")) });
-
-
-  // app.post('/movie', (req, res) => {
-  //   movie.addMovie(req, res);
-  // });
-
-  // app.get('/movie/:id', (req, res) => {
-  //   movie.getMovie(req, res);
-  // });
-
-  // app.delete('/movie/:id', (req, res) => {
-  //   movie.deleteMovie(req, res);
-  // });
-
-  // app.put('/movie/:id', (req, res) => {
-  //   movie.addReview(req, res);
-  // });
-
-  // app.delete('/review/:movieid/:reviewid', (req, res) => {
-  //   movie.deleteReview(req, res);
-  // });
 }

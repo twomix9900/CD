@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -19,9 +20,14 @@ export class NavigationComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
+    private _authService: AuthService,
   ) {}
 
   ngOnInit() {
+    this.isLoggedIn$ = this._authService.isLoggedIn();
   }
 
+  logout() {
+    this._authService.logout();
+  }
 }

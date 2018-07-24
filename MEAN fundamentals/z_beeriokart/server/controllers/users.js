@@ -17,24 +17,27 @@ module.exports = {
     });
   },
 
+  getUserInfo: (req, res) => {
+    console.log('get user invoked', req.params.id);
+    User.find({ _id: req.params.id }, (err, user) => {
+      if (err) {
+        console.log("Error getting user", err);
+        res.json({ error: err });
+      } else {
+        res.json({ user: user });
+      }
+    });
+  },
+
   registerUser: (req, res) => {
     console.log('registerUser invoked');
-    User.find({ email: req.body.email }, (err, data) => {
+    User.create({ email: req.body.email, screenName: req.body.screenName, password: req.body.password }, (err, user) => {
       if (err) {
-        console.log("error finding user by email", err);
-        res.json({
-          error: err,
-        });
+        console.log("error creating user", err);
+        res.json({ error: err });
       } else {
-        User.create({ email: req.body.email, screenName: req.body.screenName, password: req.body.password }, (err, user) => {
-          if (err) {
-            console.log("error creating user", err);
-            res.json({ error: err });
-          } else {
-            console.log("user created", user)
-            res.json({ user: user, });
-          }
-        });
+        console.log("user created", user)
+        res.json({ user: user, });
       }
     });
   },
