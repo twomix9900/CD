@@ -4,10 +4,10 @@
     <p>Looks like you've yet to record any races.</p>
     <button mat-button [routerLink]="['/add-races']">GO RACE</button>
   </div>
-  <mat-expansion-panel *ngFor="let race of _user?.races; let i = index" [attr.data-index]="i" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel *ngFor="let race of _user?.races.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Race {{ i + 1 }}
+        Race {{ _user?.races.length - i }}
       </mat-panel-title>
       <mat-panel-description class="main-header">
         {{ !panelOpenState ? 'Winner: ' + race?.winner + ', Course: ' + race?.course : race?.createdAt | date:'MM-dd-yy hh:mm:ss' }}

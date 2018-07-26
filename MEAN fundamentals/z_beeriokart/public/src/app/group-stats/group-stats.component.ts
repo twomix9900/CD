@@ -54,7 +54,6 @@ export class GroupStatsComponent implements OnInit {
         console.log('error!', group['error']);
       } else {
         this._selectedGroupInfo = group['races'];
-        console.log(this._selectedGroupInfo);
         this.getGroupBestPerformer();
         this.getGroupMostPopularCourse();
         this.getGroupBestPerformerCourse();
@@ -63,35 +62,38 @@ export class GroupStatsComponent implements OnInit {
   }
 
   getGroupBestPerformer() {
-    let temp = {};
-    for (let i = 0; i < this._selectedGroupInfo.length; i++) {
-      temp[this._selectedGroupInfo[i]['winner']] ? temp[this._selectedGroupInfo[i]['winner']]++
-      : temp[this._selectedGroupInfo[i]['winner']] = 1;
-
+    if (this._selectedGroupInfo.length > 0) {
+      let temp = {};
+      for (let i = 0; i < this._selectedGroupInfo.length; i++) {
+        temp[this._selectedGroupInfo[i]['winner']] ? temp[this._selectedGroupInfo[i]['winner']]++
+        : temp[this._selectedGroupInfo[i]['winner']] = 1;
+      }
       this._groupBestPerformer = Object.keys(temp).reduce((a, b) => temp[a] > temp[b] ? a : b);
     }
   }
 
   getGroupMostPopularCourse() {
-    let temp = {};
-    for (let i = 0; i < this._selectedGroupInfo.length; i++) {
-      temp[this._selectedGroupInfo[i]['course']] ? temp[this._selectedGroupInfo[i]['course']]++
-      : temp[this._selectedGroupInfo[i]['course']] = 1;
-
+    if (this._selectedGroupInfo.length > 0) {
+      let temp = {};
+      for (let i = 0; i < this._selectedGroupInfo.length; i++) {
+        temp[this._selectedGroupInfo[i]['course']] ? temp[this._selectedGroupInfo[i]['course']]++
+        : temp[this._selectedGroupInfo[i]['course']] = 1;
+      }
       this._groupMostPopularCourse = Object.keys(temp).reduce((a, b) => temp[a] > temp[b] ? a : b);
     }
   }
 
   getGroupBestPerformerCourse() {
-    let temp = {};
-    for (let i = 0; i < this._selectedGroupInfo.length; i++) {
-      if (this._selectedGroupInfo[i]['winner'] === this._groupBestPerformer) {
-        temp[this._selectedGroupInfo[i]['course']] ? temp[this._selectedGroupInfo[i]['course']]++
-        : temp[this._selectedGroupInfo[i]['course']] = 1;
+    if (this._selectedGroupInfo.length > 0) {
+      let temp = {};
+      for (let i = 0; i < this._selectedGroupInfo.length; i++) {
+        if (this._selectedGroupInfo[i]['winner'] === this._groupBestPerformer) {
+          temp[this._selectedGroupInfo[i]['course']] ? temp[this._selectedGroupInfo[i]['course']]++
+          : temp[this._selectedGroupInfo[i]['course']] = 1;
+        }
       }
+      this._groupBestPerformerCourse = Object.keys(temp).reduce((a, b) => temp[a] > temp[b] ? a : b);
     }
-
-    this._groupBestPerformerCourse = Object.keys(temp).reduce((a, b) => temp[a] > temp[b] ? a : b);
   }
 
 }

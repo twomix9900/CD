@@ -19,6 +19,7 @@ export class AddGroupsComponent implements OnInit {
   _groupInfo: Object;
   _errorMessages: any [];
   _tempGroupUsersArray: any []; // this will be used to submit data to DB if all validators pass
+  _groupSizeUpdated: Boolean;
 
 
   constructor(
@@ -37,6 +38,7 @@ export class AddGroupsComponent implements OnInit {
     this._groupInfo = { 2: '', 3: '', 4: '', groupSize: '' };
     this._errorMessages = [];
     this._tempGroupUsersArray = [];
+    this._groupSizeUpdated = false;
   }
 
   updateGroupSize() {
@@ -45,6 +47,7 @@ export class AddGroupsComponent implements OnInit {
     this._groupInfo[2] = '';
     this._groupInfo[3] = '';
     this._groupInfo[4] = '';
+    this._groupSizeUpdated = true;
   }
 
   validateData() {
@@ -91,35 +94,48 @@ export class AddGroupsComponent implements OnInit {
   }
 
   userValidator() {
-    this._httpService.validateUser(this._groupInfo[2]).subscribe((data) => {
-      if (data['error']) {
-        console.log('error with first user');
-        this._errorMessages.push(this._groupInfo[2] + ' is not a registered player');
-        return false;
-      } else if (this._groupInfo[3].length > 0) {
-        this._httpService.validateUser(this._groupInfo[3]).subscribe((data) => {
-          if (data['error']) {
-            console.log('error with second user');
-            this._errorMessages.push(this._groupInfo[3] + ' is not a registered player');
-            return false;
-          } else if (this._groupInfo[4].length > 0) {
-            this._httpService.validateUser(this._groupInfo[4]).subscribe((data) => {
+    let counter = 0;
+    if (this._groupInfo[2] === this._userScreenName || this._groupInfo[3] === this._userScreenName || 
+      this._groupInfo[4] === this._userScreenName) {
+      this._errorMessages.push('You are already in the group! No need to add yourself ' + this._userScreenName);
+      return false;
+    } else {
+      this._httpService.validateUser(this._groupInfo[2]).subscribe((data) => {
+        if (data['error']) {
+          console.log('user1 error');
+          this._errorMessages.push(this._groupInfo[2] + ' is not a registered player');
+          return false;
+        } else {
+          counter++;
+          if (counter === 1 && this._groupInfo[3].length > 0) {
+            this._httpService.validateUser(this._groupInfo[3]).subscribe((data) => {
               if (data['error']) {
-                console.log('error with third user');
-                this._errorMessages.push(this._groupInfo[4] + ' is not a registered player');
+                console.log('user 2 error');
+                this._errorMessages.push(this._groupInfo[3] + ' is not a registered player');
                 return false;
               } else {
-                this.submitNewGroup();
+                counter++;
+                if (counter === 2 && this._groupInfo[4].length > 0) {
+                  this._httpService.validateUser(this._groupInfo[4]).subscribe((data) => {
+                    if (data['error']) {
+                      console.log('user 3 error');
+                      this._errorMessages.push(this._groupInfo[4] + ' is not a registered player');
+                      return false;
+                    } else {
+                      this.submitNewGroup();
+                    }
+                  });
+                } else {
+                  this.submitNewGroup();
+                }
               }
             });
           } else {
             this.submitNewGroup();
           }
-        });
-      } else {
-        this.submitNewGroup();
-      }
-    });
+        }
+      });
+    }
   }
 
   submitNewGroup() {

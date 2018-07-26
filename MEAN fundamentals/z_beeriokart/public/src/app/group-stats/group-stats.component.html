@@ -1,5 +1,6 @@
 <div class="container">
   <h2>Group Stats</h2>
+  <p class="disclaimer">In case of ties, incumbents have the advantage!</p>
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
@@ -17,11 +18,11 @@
       <p>Top performer's weapon of choice: <span class="bold">{{_groupBestPerformerCourse}}</span></p>
       <p>Most popular course: <span class="bold">{{_groupMostPopularCourse}}</span></p>
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let race of _selectedGroupInfo; let i = index" [attr.data-index]="i" (opened)="panelOpenState = true"
+        <mat-expansion-panel *ngFor="let race of _selectedGroupInfo?.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true"
           (closed)="panelOpenState = false">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              R{{ i + 1 }}
+              R{{ _selectedGroupInfo.length - i }}
             </mat-panel-title>
             <mat-panel-description class="main-header">
               {{ !panelOpenState ? race?.winner + ' - ' + race?.course : race?.createdAt | date:'MM-dd-yy hh:mm:ss' }}

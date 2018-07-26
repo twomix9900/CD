@@ -24,7 +24,7 @@ export class PersonalStatsComponent implements OnInit {
 
   ngOnInit() {
     this._userTotalWins = 0;
-
+    this._userMostPopularCourse = '';
     this._httpService.getUserInfo(this._authService._loggedInUserId).subscribe((user) => {
       this._user = user['user'][0];
       this._user['password'] = null;
@@ -68,6 +68,10 @@ export class PersonalStatsComponent implements OnInit {
       : temp[this._userRaces[i]['course']] = 1;
 
       this._userMostPopularCourse = Object.keys(temp).reduce((a, b) => temp[a] > temp[b] ? a : b);
+    }
+
+    if (this._userMostPopularCourse === '') {
+      this._userMostPopularCourse = 'N/A';
     }
   }
 

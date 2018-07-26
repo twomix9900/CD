@@ -18,6 +18,9 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Fill out player names</ng-template>
+          <div *ngIf="_groupInfo.groupSize < 1 || _groupInfo.groupSize > 3 || !_groupSizeUpdated">  
+            Enter a valid group size first!
+          </div>
           <form>
             <mat-form-field *ngFor="let user of _tempGroupArray; let i = index">
               <input matInput required name="[i + 2]" [(ngModel)]="_groupInfo[i + 2]" placeholder="Player {{i + 2}}">
@@ -28,15 +31,19 @@
             </div>
           </form>
         </mat-step>
-        <mat-step>
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>Submit</ng-template>
           <div>
+            <div *ngIf="_groupInfo.groupSize < 1 || _groupInfo.groupSize > 3 || !_groupSizeUpdated">  
+              Enter a valid group size first!
+            </div>
             <div *ngFor="let error of _errorMessages">
               <p>{{ error }}</p>
             </div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button (click)="stepper.reset()">Reset</button>
-            <button mat-button (click)="validateData()">Submit</button>
+            <button mat-button (click)="validateData()" *ngIf="_groupInfo.groupSize < 1 || _groupInfo.groupSize > 3 || !_groupSizeUpdated" disabled>Submit</button>
+            <button mat-button (click)="validateData()" *ngIf="_groupInfo.groupSize > 0 && _groupInfo.groupSize < 4 && _groupSizeUpdated">Submit</button>
           </div>
         </mat-step>
       </mat-vertical-stepper>
