@@ -1,10 +1,10 @@
 <mat-accordion>
-  <h2>Your personal history</h2>
-  <div *ngIf="_showWarning">
+  <h2 class="animated fadeInRight slow">Your personal history</h2>
+  <div *ngIf="_showWarning" class="animated fadeIn slow">
     <p>Looks like you've yet to record any races.</p>
     <button mat-button [routerLink]="['/add-races']">GO RACE</button>
   </div>
-  <mat-expansion-panel *ngFor="let race of _user?.races.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+  <mat-expansion-panel *ngFor="let race of _user?.races.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="animated fadeInRight slower">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Race {{ _user?.races.length - i }}

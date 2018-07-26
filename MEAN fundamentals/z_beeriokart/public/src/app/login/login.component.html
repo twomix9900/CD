@@ -1,7 +1,7 @@
-<mat-toolbar color="primary" *ngIf="!(_isLoggedIn$ | async)">
+<mat-toolbar color="primary" *ngIf="!(_isLoggedIn$ | async)" class="animated slideInLeft slow"> 
   <span>BeerioKart Tracker</span>
 </mat-toolbar>
-<mat-tab-group color="primary">
+<mat-tab-group color="primary" class="animated slideInLeft faster">
   <mat-tab label="Login" class="login-tab">
     <mat-card class="login-card">
       <mat-card-content >
@@ -49,8 +49,8 @@
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button (click)="login()" color="accent" *ngIf="loginEmail.valid && loginPassword.valid">Login</button>
-        <button mat-raised-button (click)="login()" color="accent" *ngIf="!loginEmail.valid || !loginPassword.valid" disabled>Login</button>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="loginEmail.valid && loginPassword.valid" class="animated fadeIn faster">Login</button>
+        <button mat-raised-button (click)="login()" color="accent" *ngIf="!loginEmail.valid || !loginPassword.valid" class="animated fadeIn faster" disabled>Login</button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>
@@ -152,8 +152,8 @@
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-raised-button (click)="register()" color="accent" *ngIf="regEmail.valid && regPassword.valid && regPasswordConfirm.valid && regScreenName.valid && _regUser.password == _regUser.passwordConfirm">Register</button>
-        <button mat-raised-button (click)="register()" color="accent" *ngIf="!regEmail.valid || !regPassword.valid || !regPasswordConfirm.valid || !regScreenName.valid || _regUser.password != _regUser.passwordConfirm" disabled>Register</button>
+        <button mat-raised-button (click)="register()" color="accent" *ngIf="regEmail.valid && regPassword.valid && regPasswordConfirm.valid && regScreenName.valid && _regUser.password == _regUser.passwordConfirm" class="animated fadeIn faster">Register</button>
+        <button mat-raised-button (click)="register()" color="accent" *ngIf="!regEmail.valid || !regPassword.valid || !regPasswordConfirm.valid || !regScreenName.valid || _regUser.password != _regUser.passwordConfirm" class="animated fadeIn faster" disabled>Register</button>
       </mat-card-actions>
     </mat-card>
   </mat-tab>

@@ -1,46 +1,44 @@
-<div class="container">
-  <h2>Group Stats</h2>
-  <p class="disclaimer">In case of ties, incumbents have the advantage!</p>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title></mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field *ngIf="_formattedUserGroups" required>
-        <mat-select placeholder="Your Groups" [(ngModel)]="_selectedGroupIdx"> 
-          <mat-option *ngFor="let group of _formattedUserGroups; let i = index" value={{i}} (click)="setGroup()">
-            {{ group }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <p>Top performer in this group: <span class="bold">{{_groupBestPerformer}}</span></p>
-      <p>Top performer's weapon of choice: <span class="bold">{{_groupBestPerformerCourse}}</span></p>
-      <p>Most popular course: <span class="bold">{{_groupMostPopularCourse}}</span></p>
-      <mat-accordion>
-        <mat-expansion-panel *ngFor="let race of _selectedGroupInfo?.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              R{{ _selectedGroupInfo.length - i }}
-            </mat-panel-title>
-            <mat-panel-description class="main-header">
-              {{ !panelOpenState ? race?.winner + ' - ' + race?.course : race?.createdAt | date:'MM-dd-yy hh:mm:ss' }}
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p class="header">Platform: {{race?.platform}}</p>
-          <p class="header">Course: {{ race?.course }}</p>
-          <div *ngFor="let group of race['group']">
-            <div *ngFor="let player of group['users']; let j = index" [attr.data-index]="j">
-              <p *ngIf="player !== race.winner">{{ player }}</p>
-              <p class="header" *ngIf="player === race.winner">{{ player }}</p>
-            </div>
+<h2 class="animated SlideOutUp slow">Group Stats</h2>
+<p class="disclaimer animated SlideOutUp slow">In case of ties, incumbents have the advantage!</p>
+<mat-card class="example-card animated slideInUp slow">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field *ngIf="_formattedUserGroups" required class="animated fadeIn slow">
+      <mat-select placeholder="Your Groups" [(ngModel)]="_selectedGroupIdx"> 
+        <mat-option *ngFor="let group of _formattedUserGroups; let i = index" value={{i}} (click)="setGroup()">
+          {{ group }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>Top performer in this group: <span class="bold">{{_groupBestPerformer}}</span></p>
+    <p>Top performer's weapon of choice: <span class="bold">{{_groupBestPerformerCourse}}</span></p>
+    <p>Most popular course: <span class="bold">{{_groupMostPopularCourse}}</span></p>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let race of _selectedGroupInfo?.reverse(); let i = index" [attr.data-index]="i" (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false" class="animated fadeIn slow">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ _selectedGroupInfo.length - i }}
+          </mat-panel-title>
+          <mat-panel-description class="main-header">
+            {{ !panelOpenState ? race?.winner + ' - ' + race?.course : race?.createdAt | date:'MM-dd-yy hh:mm:ss' }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="header">Platform: {{race?.platform}}</p>
+        <p class="header">Course: {{ race?.course }}</p>
+        <div *ngFor="let group of race['group']">
+          <div *ngFor="let player of group['users']; let j = index" [attr.data-index]="j">
+            <p *ngIf="player !== race.winner">{{ player }}</p>
+            <p class="header" *ngIf="player === race.winner">{{ player }}</p>
           </div>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button [routerLink]="['/add-races']">GO RACE</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button [routerLink]="['/add-races']">GO RACE</button>
+  </mat-card-actions>
+</mat-card>
