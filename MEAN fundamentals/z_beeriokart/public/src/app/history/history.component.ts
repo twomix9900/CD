@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-// import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+// import { ActivatedRoute, Params, Router } from '@angular/router';
 // import { Observable } from 'rxjs';
 
 @Component({
@@ -12,6 +12,7 @@ import { AuthService } from '../auth.service';
 export class HistoryComponent implements OnInit {
   _user: Object;
   _platform: String;
+  _showWarning: Boolean;
 
   constructor(
     private _httpService: HttpService,
@@ -19,12 +20,13 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this._authService._loggedInUserId);
-    let userObs = this._httpService.getUserInfo(this._authService._loggedInUserId);
-    userObs.subscribe((user) => {
-      console.log('Got user back from DB', user);
+    this._showWarning = true;
+    this._httpService.getUserInfo(this._authService._loggedInUserId).subscribe((user) => {
       this._user = user['user'][0];
-      console.log(user['user'][0]);
+      this._user['password'] = null;
+      if (this._user['races'].length > 0) {
+        this._showWarning = false;
+      }
     });
   }
 }

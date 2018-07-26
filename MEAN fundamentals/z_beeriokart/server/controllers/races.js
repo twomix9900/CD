@@ -5,20 +5,13 @@ Group = mongoose.model('Group');
 
 module.exports = {
   initRace: (req, res) => {
-    console.log('createRace invoked');
-    User.find({ _id: req.params.userId }, (err, user) => {
+    console.log('initRace invoked', req.body);
+    Race.create({ winner: req.body.winner, course: req.body.course, platform: req.body.platform }, (err, race) => {
       if (err) {
-        console.log("error finding user", err);
+        console.log('error creating race', err);
         res.json({ error: err });
       } else {
-        Race.create({ course: req.body.course, platform: req.body.platform, winner: user[0]['screenName'] }, (err, race) => {
-          if (err) {
-            console.log("error creating race", err);
-            res.json({ error: err });
-          } else {
-            res.json({ race: race });
-          }
-        });
+        res.json({ race: race });
       }
     });
   },
@@ -56,14 +49,14 @@ module.exports = {
   },
 
   addRaceToUser: (req, res) => {
-    console.log('addRaceToUser invoked', req.params.userId, req.params.raceId);
+    console.log('addRaceToUser invoked', req.params.userSN, req.params.raceId);
     Race.find({ _id: req.params.raceId }, (err, race) => {
       console.log(race);
       if (err) {
         console.log("error finding user", err);
         res.json({ error: err });
       } else {
-        User.findOneAndUpdate({ _id: req.params.userId }, { $push: { races: race[0] } }, (err, user) => {
+        User.findOneAndUpdate({ screenName: req.params.userSN }, { $push: { races: race[0] } }, (err, user) => {
           if (err) {
             console.log("Error updating movie", err);
             res.json({ error: err });
@@ -75,8 +68,8 @@ module.exports = {
   },
 
   addGroupToRace: (req, res) => {
-    console.log('addGroupToRace invoked');
-    Group.find({ _id: req.body.groupId }, (err, group) => {
+    console.log('addGroupToRace invoked', req.params.groupId, req.params.raceId);
+    Group.find({ _id: req.params.groupId }, (err, group) => {
       if (err) {
         console.log('error finding group', err);
         res.json({ error: err });

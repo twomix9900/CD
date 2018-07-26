@@ -1,0 +1,15 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{ _authService._loggedInUserScreenname }}</mat-card-title>
+    <mat-card-subtitle>Personal Stats</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Total wins: <span class="blue">{{ _userTotalWins }}</span></p>
+    <p>Course with most wins: <span class="blue">{{ _userBestCourse }}</span></p>
+    <p>Most played course: <span class="blue">{{ _userMostPopularCourse }}</span></p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button [routerLink]="['/add-races']">GO RACE</button>
+  </mat-card-actions>
+</mat-card>

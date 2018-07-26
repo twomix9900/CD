@@ -4,7 +4,6 @@ const UserSchema = require('./user.js');
 const GroupSchema = require('./group.js');
 
 const RaceSchema = new mongoose.Schema({
-  users: { type: [UserSchema] },
   course: {
     type: String,
     required: [true, "Course name is required"],

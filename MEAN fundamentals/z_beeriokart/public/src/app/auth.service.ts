@@ -3,8 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  _loggedInUserId: String;
+  _loggedInUserId: any;
   _userLoggedIn  = false;
+  _loggedInUserScreenname: String;
   isLoginSubject = new BehaviorSubject<boolean>(this.hasToken());
   /**
    *
@@ -17,10 +18,11 @@ export class AuthService {
   /**
    *  Login the user then tell all the subscribers about the new status
    */
-  login(id: String): void {
+  login(id: String, screenName: String): void {
     // localStorage.setItem('token', 'JWT');
     this._userLoggedIn = true;
     this._loggedInUserId = id;
+    this._loggedInUserScreenname = screenName;
     this.isLoginSubject.next(true);
   }
 
@@ -31,6 +33,7 @@ export class AuthService {
     // localStorage.removeItem('token');
     this._userLoggedIn = false;
     this._loggedInUserId = '';
+    this._loggedInUserScreenname = '';
     this.isLoginSubject.next(false);
   }
 

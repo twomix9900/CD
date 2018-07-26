@@ -30,4 +30,8 @@ export class NavigationComponent implements OnInit {
   logout() {
     this._authService.logout();
   }
+
+  checkStatus() {
+    console.log(this.isLoggedIn$);
+  }
 }

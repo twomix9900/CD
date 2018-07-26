@@ -5,13 +5,16 @@
     fixedInViewport="true"
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    [opened]="!(isHandset$ | async)"
+    >
+    <mat-toolbar color="primary">{{ _authService._loggedInUserScreenname }}</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item [routerLink]="['/faq']" (click)="drawer.close()">FAQ</a>
-      <a mat-list-item [routerLink]="['/history']" (click)="drawer.close()">History</a>
-      <a mat-list-item [routerLink]="['/add-race']" (click)="drawer.close()">Add Race</a>
-      <a mat-list-item [routerLink]="['/manage-groups']" (click)="drawer.close()">Manage Groups</a>
+      <a mat-list-item [routerLink]="['/faq']" (click)="drawer.toggle()">FAQ</a>
+      <a mat-list-item [routerLink]="['/history']" (click)="drawer.toggle()">History</a>
+      <a mat-list-item [routerLink]="['/add-races']" (click)="drawer.toggle()">Add Races</a>
+      <a mat-list-item [routerLink]="['/add-groups']" (click)="drawer.toggle()">Add Groups</a>
+      <a mat-list-item [routerLink]="['/personal-stats']" (click)="drawer.toggle()">Personal Stats</a>
+      <a mat-list-item [routerLink]="['/group-stats']" (click)="drawer.toggle()">Group Stats</a>
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -23,9 +26,8 @@
         mat-icon-button
         (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>BeerioKart Tracker</span>
+      <span (click)="drawer.toggle()"><mat-icon aria-label="Side nav toggle icon">menu</mat-icon>BeerioKart Tracker</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

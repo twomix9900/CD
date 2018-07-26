@@ -1,0 +1,16 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://www.mariowiki.com/images/thumb/f/ff/Mario_Kart_8_-_Star_Cup_logo.svg/1200px-Mario_Kart_8_-_Star_Cup_logo.svg.png');
+  background-size: cover;
+}
+
+mat-card-title {
+  font-weight: bold;
+}
+
+.blue {
+  color: #0000ff;
+}

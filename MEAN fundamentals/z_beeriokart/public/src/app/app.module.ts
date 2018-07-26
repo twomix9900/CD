@@ -14,8 +14,10 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { FAQComponent } from './faq/faq.component';
 import { HistoryComponent } from './history/history.component';
-import { AddRaceComponent } from './add-race/add-race.component';
-import { ManageGroupsComponent } from './manage-groups/manage-groups.component';
+import { AddRacesComponent } from './add-races/add-races.component';
+import { AddGroupsComponent } from './add-groups/add-groups.component';
+import { PersonalStatsComponent } from './personal-stats/personal-stats.component';
+import { GroupStatsComponent } from './group-stats/group-stats.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +27,10 @@ import { ManageGroupsComponent } from './manage-groups/manage-groups.component';
     NavigationComponent,
     FAQComponent,
     HistoryComponent,
-    AddRaceComponent,
-    ManageGroupsComponent,
+    AddRacesComponent,
+    AddGroupsComponent,
+    PersonalStatsComponent,
+    GroupStatsComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -33,27 +33,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    let userObs = this._httpService.login(this._loginUser);
-    userObs.subscribe((data) => {
-      console.log('got user back from DB', data);
-
+    this._httpService.login(this._loginUser).subscribe((data) => {
       if (data['error']) {
         this._loginErrorMessage = 'Invalid login credentials';
       } else {
         this._loginErrorMessage = '';
-        this._authService.login(data['user']['_id']);
-        this._router.navigateByUrl('/history');
+        this._authService.login(data['user']['_id'], data['user']['screenName']);
+        this._router.navigateByUrl('/add-races');
       }
     });
   }
 
   register() {
-    let userObs = this._httpService.register(this._regUser);
-    userObs.subscribe((data) => {
+    this._httpService.register(this._regUser).subscribe((data) => {
       this._regEmailError = false;
       this._regSNError = false;
-
-      console.log('got user back from DB', data);
       if (data['error']) {
         if (data['error']['errors']['email']) {
           if (data['error']['errors']['email']['message']) {
@@ -79,7 +73,7 @@ export class LoginComponent implements OnInit {
       }
 
       if (!this._regEmailError && !this._regSNError) {
-        this._authService.login(data['_id']);
+        this._authService.login(data['user']['_id'], data['user']['screenName']);
         this._router.navigateByUrl('/faq');
       }
 

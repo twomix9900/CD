@@ -10,3 +10,12 @@
   position: sticky;
   top: 0;
 }
+
+span {
+  cursor: alias;
+}
+
+mat-icon {
+  position: relative;
+  top: 5px;
+}

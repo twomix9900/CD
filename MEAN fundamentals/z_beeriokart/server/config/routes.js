@@ -8,6 +8,10 @@ module.exports = (app) => {
     user.getUsers(req, res);
   });  
 
+  app.get('/screenName/:screenName', (req, res) => {
+    user.validateUser(req, res);
+  });
+
   app.post('/registerUser', (req, res) => {
     user.registerUser(req, res);
   });
@@ -24,7 +28,7 @@ module.exports = (app) => {
     user.deleteUser(req, res);
   });
 
-  app.post('/race/:userId', (req, res) => {
+  app.post('/race/', (req, res) => {
     race.initRace(req, res);
   });
 
@@ -32,7 +36,7 @@ module.exports = (app) => {
     race.addUserToRace(req, res);
   });
 
-  app.put('/user/:userId/race/:raceId', (req, res) => {
+  app.put('/user/:userSN/race/:raceId', (req, res) => {
     race.addRaceToUser(req, res);
   });
 
@@ -52,16 +56,28 @@ module.exports = (app) => {
     group.getGroups(req, res);
   });
 
-  app.post('/group/:userId', (req, res) => {
+  app.post('/group/', (req, res) => {
     group.initGroup(req, res);
   });
 
-  app.put('/group/:groupId/user/:userId', (req, res) => {
+  app.put('/group/:groupId/user/:screenName', (req, res) => {
     group.addUserToGroup(req, res);
   });
 
-  app.delete('/group/:id', (req, res) => {
-    group.deleteGroup(req.res);
+  app.put('/user/:userSN/group/:groupId', (req, res) => {
+    group.addGroupToUser(req, res);
+  });
+
+  app.get('/group/:groupId', (req, res) => {
+    group.getGroup(req, res);
+  })
+
+  app.get('/group/:groupId/races', (req, res) => {
+    group.getGroupInfoFromRaces(req, res);
+  })
+
+  app.delete('/user/:userId/group/:groupId', (req, res) => {
+    group.deleteGroup(req, res);
   });
 
   app.all("*", (req,res,next) => { res.sendFile(path.resolve("./public/dist/public/index.html")) });
