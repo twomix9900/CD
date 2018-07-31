@@ -1,0 +1,9 @@
+1) activate virtual env (source myEnvironments/djangoPy3Env/bin/activate from the Python folder)
+2) go to the project folder then run (python manage.py runserver)
+3) open localhost:8000
+4) admin account: a@a.com, 12341234
+
+admin stuff:
+localhost:8000/admin
+id: admin
+pw: superuser1234

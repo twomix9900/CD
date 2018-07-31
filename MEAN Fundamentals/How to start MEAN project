@@ -1,0 +1,9 @@
+1) Open up a terminal and have mongod running (sudo mongod)
+2) Open up a terminal, go to the project root folder, and run nodemon (nodemon server.js)
+3) Open up a terminal, go to the project root folder, go to angular folder (probably named Public), run (ng build --watch)
+4) Go to localhost:8000
+
+to tweak DB:
+1) type "mongo" in terminal
+2) open up db you want to use (eg "use beeriokart")
+3) delete stuff (eg db.races.drop())

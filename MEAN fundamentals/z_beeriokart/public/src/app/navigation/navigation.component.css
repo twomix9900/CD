@@ -18,4 +18,5 @@ span {
 mat-icon {
   position: relative;
   top: 5px;
+  right: 2em;
 }

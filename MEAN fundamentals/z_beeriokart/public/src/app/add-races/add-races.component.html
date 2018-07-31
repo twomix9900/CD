@@ -13,7 +13,7 @@
 </mat-form-field>
 <mat-form-field *ngIf="_selectedPlatform && _formattedUserGroups.length > 0" required class="animated slideInDown slow">
   <mat-select placeholder="Course" [(ngModel)]="_selectedCourse"> 
-    <mat-option *ngFor="let course of _platformCourses" [value]="course" (click)="setCourse()">
+    <mat-option *ngFor="let course of _platformCourses" [value]="course" (click)="setCourse()" class="scroll">
       {{ course }}
     </mat-option>
   </mat-select>
