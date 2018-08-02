@@ -1,0 +1,25 @@
+.row {
+	display: block;
+}
+
+.blue {
+	background-color: blue;
+	width: 75px;
+	height: 50px;
+	outline: 1px solid black;
+	display: inline-block;
+}
+
+.red {
+	background-color: red;
+	width: 75px;
+	height: 50px;
+	outline: 1px solid black;
+	display: inline-block;
+}
+
+* {
+	margin: -2px;
+	padding: -2px;
+}
+
