@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="Setup" path="/Setup" reloadable="true" source="org.eclipse.jst.jee.server:Setup"/><Context docBase="UserInformation" path="/UserInformation" reloadable="true" source="org.eclipse.jst.jee.server:UserInformation"/><Context docBase="Checkerboard" path="/Checkerboard" reloadable="true" source="org.eclipse.jst.jee.server:Checkerboard"/><Context docBase="MVCDemo" path="/MVCDemo" reloadable="true" source="org.eclipse.jst.jee.server:MVCDemo"/></Host>
+      <Context docBase="Checkerboard" path="/Checkerboard" reloadable="true" source="org.eclipse.jst.jee.server:Checkerboard"/><Context docBase="MVCDemo" path="/MVCDemo" reloadable="true" source="org.eclipse.jst.jee.server:MVCDemo"/><Context docBase="Pets" path="/Pets" reloadable="true" source="org.eclipse.jst.jee.server:Pets"/><Context docBase="ButtonClicker" path="/ButtonClicker" reloadable="true" source="org.eclipse.jst.jee.server:ButtonClicker"/><Context docBase="GreatNumberGame" path="/GreatNumberGame" reloadable="true" source="org.eclipse.jst.jee.server:GreatNumberGame"/><Context docBase="TeamRoster" path="/TeamRoster" reloadable="true" source="org.eclipse.jst.jee.server:TeamRoster"/></Host>
     </Engine>
   </Service>
 </Server>
