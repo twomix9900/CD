@@ -4,23 +4,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 <div class="container">
-	<div class="row">
-		<a href="/songs/new">Add New&nbsp;&nbsp;&nbsp;&nbsp;</a>
-		<a href="">Search Artists</a>
-	</div>
-	<h3>Top ten songs</h3>
+	<h3>Ninjas</h3>
 	<table>
 	    <thead>
 	        <tr>
-	            <th>Name</th>
-	            <th>Rating</th>
+	            <th>First Name</th>
+	            <th>Last Name</th>
+	            <th>Age</th>
 	        </tr>
 	    </thead>
 	    <tbody>
-	        <c:forEach begin="0" end="9" items="${songs}" var="song">
+	        <c:forEach items="${ninjas}" var="ninja">
 	        <tr>
-	            <td><a href="/songs/${song.id}"><c:out value="${song.title}"/></a></td>
-	            <td><c:out value="${song.artist}"/></td>
+	            <td><c:out value="${ninja.firstName}"/></td>
+	            <td><c:out value="${ninja.lastName}"/></td>
+	            <td><c:out value="${ninja.age}"/></td>
 	        </tr>
 	        </c:forEach>
 	    </tbody>

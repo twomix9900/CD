@@ -1,7 +1,8 @@
 package com.cd.lookify.controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -68,14 +69,28 @@ public class SongsController {
 	
 	@RequestMapping("/topten")
 	public String showTopTenSongs(Model model) {
-		List<Song> topTenSongs = new ArrayList<Song>();
 		List<Song> songs = songService.allSongs();
-		Arrays.sort(songs);
+		Collections.sort(songs, new Comparator<Song>() {
+			@Override public int compare(Song s1, Song s2) {
+				return s2.getRating() - s1.getRating();
+			}
+		});
+
+		
 		model.addAttribute("songs", songs);
 		return "/songs/topten.jsp";
 	}
 	
-	
+	@RequestMapping("/search")
+	public String searchArtist(@Valid @ModelAttribute("song") Song song, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "/songs/index.jsp";
+		} else {
+			List<Song> songs = songService.searchArtist(song.getArtist());
+			model.addAttribute("songs", songs);
+			return "/songs/search.jsp";
+		}
+	}
 //	public LanguagesController(LanguageService languageService) {
 //		this.languageService = languageService;
 //	}

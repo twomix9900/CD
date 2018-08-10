@@ -17,13 +17,13 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="songs")
-public class Song implements Comparable<Song>{
+public class Song {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(min = 5)
+	@Size(min = 5, max = 50)
 	private String title;
-	@Size(min = 5)
+	@Size(min = 5, max = 50)
 	private String artist;
 	@Min(1)
 	@Max(10)
@@ -104,21 +104,21 @@ public class Song implements Comparable<Song>{
 		this.updatedAt = updatedAt;
 	}
 	
-	public int compareTo(Song compareSong) {
-		int compareRating = ((Song) compareSong).getRating();
-		
-		return compareRating - this.rating;
-	}
-	
-	public static Comparator<Song> SongTitleComparator = new Comparator<Song>() {
-		public int compare(Song song1, Song song2) {
-			String songTitle1 = song1.getTitle().toUpperCase();
-			String songTitle2 = song2.getTitle().toUpperCase();
-			
-			return songTitle1.compareTo(songTitle2);
-			//return songTitle2.compareTo(songTitle1);
-		}
-	};
+//	public int compareTo(Song compareSong) {
+//		int compareRating = ((Song) compareSong).getRating();
+//		
+//		return compareRating - this.rating;
+//	}
+//	
+//	public static Comparator<Song> SongTitleComparator = new Comparator<Song>() {
+//		public int compare(Song song1, Song song2) {
+//			String songTitle1 = song1.getTitle().toUpperCase();
+//			String songTitle2 = song2.getTitle().toUpperCase();
+//			
+//			return songTitle1.compareTo(songTitle2);
+//			//return songTitle2.compareTo(songTitle1);
+//		}
+//	};
 	
 
 }

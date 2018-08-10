@@ -50,4 +50,8 @@ public class SongService {
 			return false;
 		}
 	}
+	
+	public List<Song> searchArtist(String search) {
+		return songRepository.findByArtistContaining(search);
+	}
 }
