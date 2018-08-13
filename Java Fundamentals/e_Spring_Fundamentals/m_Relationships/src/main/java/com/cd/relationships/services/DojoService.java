@@ -48,6 +48,14 @@ public class DojoService {
 			return false;
 		}
 	}
+	
+	
+	//Advanced query stuff
+//	List<Object[]> dojos = dojoRepo.findAllDojosNamesWithId2();
+//	Object[] dojo = dojos.get(0);
+//	Object dojoId = dojo[0];
+//	Object dojoName = dojo[1];
+
 }
 
 //@Service
