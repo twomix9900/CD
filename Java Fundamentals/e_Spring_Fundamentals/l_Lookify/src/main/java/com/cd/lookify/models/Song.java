@@ -45,17 +45,6 @@ public class Song {
 	public Song() {
 	}
 
-	public Song(Long id, @Size(min = 5) String title, @Size(min = 5) String artist,
-			@Size(min = 1, max = 10) Integer rating, Date createdAt, Date updatedAt) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.artist = artist;
-		this.rating = rating;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
-
 	public Long getId() {
 		return id;
 	}
