@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 <%@ page isErrorPage="true" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div class="container">
 	<a href="logout">Log out</a>
@@ -26,11 +27,34 @@
 					<td><c:out value="${e.city}"/></td>
 					<td><c:out value="${e.eventHost.firstName}"/></td>
 					<td>
-						<c:forEach items="${e.getAttendeeUsers()}" var="attendee">
-							<c:if test="${attendee != user}">
-								User not attending
-							</c:if>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${e.eventHost == user}">
+								<form:form method="GET" action="/events/edit/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Edit
+									</button>	
+					    		</form:form>
+								<form:form method="POST" action="/events/delete/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Delete
+									</button>	
+					    		</form:form>
+							</c:when>
+								<c:when test="${fn:contains(e.attendeeUsers, user)}">
+								<form:form method="POST" action="/events/leaveEvent/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Leave
+									</button>	
+					    		</form:form>
+							</c:when>
+							<c:otherwise>
+								<form:form method="POST" action="/events/joinEvent/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Join
+									</button>	
+					    		</form:form>
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 			</c:forEach>
@@ -61,7 +85,36 @@
 					<td><c:out value="${e.city}"/></td>
 					<td><c:out value="${e.state}"/></td>
 					<td><c:out value="${e.eventHost.firstName}"/></td>
-					<td>BUTTONS</td>
+					<td>
+						<c:choose>
+							<c:when test="${e.eventHost == user}">
+								<form:form method="GET" action="/events/edit/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Edit
+									</button>	
+					    		</form:form>
+								<form:form method="POST" action="/events/delete/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Delete
+									</button>	
+					    		</form:form>
+							</c:when>
+								<c:when test="${fn:contains(e.attendeeUsers, user)}">
+								<form:form method="POST" action="/events/leaveEvent/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Leave
+									</button>	
+					    		</form:form>
+							</c:when>
+							<c:otherwise>
+								<form:form method="POST" action="/events/joinEvent/${e.id}">
+							   	    <button class="btn waves-effect waves-light deep-purple" type="submit">
+							    		Join
+									</button>	
+					    		</form:form>
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

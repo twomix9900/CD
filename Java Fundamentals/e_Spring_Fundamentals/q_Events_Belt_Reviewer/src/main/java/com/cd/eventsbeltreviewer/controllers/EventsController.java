@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cd.eventsbeltreviewer.models.Attendee;
 import com.cd.eventsbeltreviewer.models.Event;
 import com.cd.eventsbeltreviewer.models.Message;
 import com.cd.eventsbeltreviewer.models.User;
@@ -40,12 +40,12 @@ public class EventsController {
     	
     	List<Event> events1 = allService.findAllEventsInUserState(user.getState());
     	List<Event> events2 = allService.findAllEventsNotInUserState(user.getState());
+    	List<Attendee> a = allService.findAllAttendeeEntries();
     	
     	model.addAttribute("events1", events1); 
     	model.addAttribute("events2", events2);
     	model.addAttribute("user", user);
-    	
-    	System.out.println(events1.get(0).getAttendeeUsers());
+    	model.addAttribute("attendees", a);
 
     	
         return "showEvents.jsp";
@@ -88,11 +88,39 @@ public class EventsController {
     	return "editEvent.jsp";
     }
     
-    @RequestMapping(value="edit/{eventId}", method=RequestMethod.PUT)
+    @PostMapping("edit/{eventId}")
     public String editEvent(@PathVariable("eventId") Long eventId, @ModelAttribute("event") Event event) {
     	System.out.println("Edit event invoked");
     	Event oldEvent = allService.findEventById(eventId).get();
     	allService.updateEvent(oldEvent, event);
+    	return "redirect:/events";
+    }
+    
+    @PostMapping("delete/{eventId}")
+    public String deleteEvent(@PathVariable("eventId") Long eventId) {
+    	System.out.println("delete event invoked");
+    	Event event = allService.findEventById(eventId).get();
+    	allService.deleteEvent(event);
+    	return "redirect:/events";
+    }
+    
+    @PostMapping("joinEvent/{id}")
+    public String joinEvent(@PathVariable("id") String id, HttpSession session) {
+    	System.out.println("joinEvent " + id);
+    	Event event = allService.findEventById(Long.parseLong(id)).get();
+    	User user = userService.findUserById((Long) session.getAttribute("userId"));
+    	allService.addAttendee(event, user);
+    	
+    	return "redirect:/events";
+    }
+    
+    @PostMapping("leaveEvent/{id}")
+    public String leaveEvent(@PathVariable("id") String id, HttpSession session) {
+    	System.out.println("leaveEvent " + id);
+    	Event event = allService.findEventById(Long.parseLong(id)).get();
+    	User user = userService.findUserById((Long) session.getAttribute("userId"));
+    	allService.removeAttendee(event, user);
+    	
     	return "redirect:/events";
     }
 }
