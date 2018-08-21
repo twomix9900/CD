@@ -1,0 +1,80 @@
+Starting a project:
+- Open up STS (spring tool suite)
+- Right click -> new  -> spring starter project
+- Name group, artifact, and package accordingly (eg com.cd.myproject)
+    Make sure the packaging is War, not Jar, for easier deployment
+- Check all 4 dependencies (DevTools, JPA, MySQL, Web) then click on Finish
+- Edit pom.xml at the bottom
+  Copy the following in the pom.xml tab over the current <dependencies> element (we're adding more dependencies):
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.tomcat.embed</groupId>
+          <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.mindrot</groupId>
+          <artifactId>jbcrypt</artifactId>
+          <version>0.4</version>
+        </dependency>
+      </dependencies>
+-Edit application.properties in src/main/resources folder:
+  Add the following:
+      spring.datasource.url=jdbc:mysql://localhost:3306/mysqlschemaname
+      spring.datasource.username=root
+      spring.datasource.password=root
+      spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+      spring.jpa.hibernate.ddl-auto=update
+      spring.mvc.view.prefix=/WEB-INF/
+
+  Note: The "mysqlschemaname" schema HAS to exist in MySQL first
+
+Add message.properties file in src/main/resources folder, where application.properties is, then add the following:
+  Match.user.passwordConfirmation=Password and Password Confirmation must match
+
+Add packages to src/main/java folder (eg controllers, models, repositories, services, validator)
+
+Template files go into src/main/webapp/WEB-INF
+
+Start MAMP and have the MAMP server running
+Localhost:8080 for apps is the default
+
+
+Creating new schema in MySQL:
+-Click on localhost in welcome screen (localhost, root, 127.0.0.1:3306)
+-Click on "create new schema" icon (4th from left)
+-Enter schema name and set utf-8 default as "default collation, then click apply two times
+
+you are done, click on refresh button on mid left to see your new schema
