@@ -13,6 +13,10 @@ export class HttpService {
     return this._http.post('/loginUser', user);
   }
 
+  // login2(user: Object) {
+  //   return this._http.post('/loginUser2', user);
+  // }
+
   register(user: Object) {
     return this._http.post('/registerUser', user);
   }

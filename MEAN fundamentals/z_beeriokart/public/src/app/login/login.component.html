@@ -14,15 +14,13 @@
               <td>
                 <mat-form-field class="login-full-width">
                   <input matInput 
-                  placeholder="Email" 
-                  type="email" 
+                  placeholder="Email or SN" 
                   name="email" 
                   required
                   [(ngModel)]="_loginUser['email']"
                   #loginEmail="ngModel"
                   minlength="3"
                   class="ng-valid ng-invalid"
-                  [email]="true"
                   >
                 </mat-form-field>
               </td>

@@ -36,6 +36,15 @@ export class LoginComponent implements OnInit {
     this._httpService.login(this._loginUser).subscribe((data) => {
       if (data['error']) {
         this._loginErrorMessage = 'Invalid login credentials';
+        // this._httpService.login2(this._loginUser).subscribe((data2) => {
+        //   if (data2['error']) {
+        //     this._loginErrorMessage = 'Invalid login credentials';
+        //   } else {
+        //     this._loginErrorMessage = '';
+        //     this._authService.login(data2['user']['_id'], data2['user']['screenName']);
+        //     this._router.navigateByUrl('/add-races');
+        //   }
+        // })
       } else {
         this._loginErrorMessage = '';
         this._authService.login(data['user']['_id'], data['user']['screenName']);

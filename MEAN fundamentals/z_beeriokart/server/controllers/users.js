@@ -49,7 +49,28 @@ module.exports = {
         console.log('error with finding user', err);
         res.json({ error: err })
       } else if (!user) {
-        res.json({ error: "Invalid user credentials" })
+        console.log("Checking screenname", req.body);
+        User.findOne( { screenName: req.body.email }, (error, user) => {
+          if (error) {
+            console.log('error with finding user', error);
+            res.json({ error: error })
+          } else if (!user) {
+            console.log("User not found");
+            res.json({ error: "Invalid user credentials" });
+          } else {
+            console.log("Comparing pw", user)
+            user.comparePassword(req.body.password, (err, isMatch)  => {
+              if (err) {
+                console.log('error checking pw', err);
+                res.json({ error: err });
+              } else if (isMatch) { 
+                res.json({ user: user });
+              } else {
+                res.json({ error: "Invalid user credentials" });
+              }
+            });
+          }
+        } )
       } else {
         console.log('user after', user)
         user.comparePassword(req.body.password, (err, isMatch)  => {
@@ -65,6 +86,30 @@ module.exports = {
       }
     });
   },
+
+  // loginUser2: (req, res) => {
+  //   console.log('loginUser invoked', req.body);
+  //     User.findOne( { screenName: req.body.screenName } , (err, user) => {
+  //     if (err) {
+  //       console.log('error with finding user', err);
+  //       res.json({ error: err })
+  //     } else if (!user) {
+  //       res.json({ error: "Invalid user credentials" })
+  //     } else {
+  //       console.log('user after', user)
+  //       user.comparePassword(req.body.password, (err, isMatch)  => {
+  //         if (err) {
+  //           console.log('error checking pw', err);
+  //           res.json({ error: err });
+  //         } else if (isMatch) { 
+  //           res.json({ user: user });
+  //         } else {
+  //           res.json({ error: "Invalid user credentials" });
+  //         }
+  //       });
+  //     }
+  //   });
+  // },
 
   deleteUser: (req, res) => {
     console.log('deleteUser invoked');
