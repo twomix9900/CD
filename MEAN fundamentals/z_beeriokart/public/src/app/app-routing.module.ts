@@ -8,6 +8,7 @@ import { AddRacesComponent } from './add-races/add-races.component';
 import { AddGroupsComponent } from './add-groups/add-groups.component';
 import { PersonalStatsComponent } from './personal-stats/personal-stats.component';
 import { GroupStatsComponent } from './group-stats/group-stats.component';
+import { RandomRaceComponent } from './random-race/random-race.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'add-groups', component: AddGroupsComponent },
   { path: 'personal-stats', component: PersonalStatsComponent },
   { path: 'group-stats', component: GroupStatsComponent },
+  { path: 'random-race', component: RandomRaceComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

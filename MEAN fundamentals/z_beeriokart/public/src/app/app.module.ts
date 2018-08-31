@@ -18,6 +18,7 @@ import { AddRacesComponent } from './add-races/add-races.component';
 import { AddGroupsComponent } from './add-groups/add-groups.component';
 import { PersonalStatsComponent } from './personal-stats/personal-stats.component';
 import { GroupStatsComponent } from './group-stats/group-stats.component';
+import { RandomRaceComponent } from './random-race/random-race.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { GroupStatsComponent } from './group-stats/group-stats.component';
     AddGroupsComponent,
     PersonalStatsComponent,
     GroupStatsComponent,
+    RandomRaceComponent,
   ],
   imports: [
     AppRoutingModule,

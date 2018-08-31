@@ -20,10 +20,6 @@ module.exports = (app) => {
     user.loginUser(req, res);
   });
 
-  // app.post('/loginUser2', (req, res) => {
-  //   user.loginUser(req, res);
-  // });
-
   app.post('/user/:id', (req, res) => {
     user.getUserInfo(req, res);
   });

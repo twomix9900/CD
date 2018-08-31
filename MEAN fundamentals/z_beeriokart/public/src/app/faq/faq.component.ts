@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-faq',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FAQComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _router: Router,
+  ) { }
 
   ngOnInit() {
   }
 
+  navigateToAddGroup() {
+    this._router.navigateByUrl('/add-groups');
+  }
 }

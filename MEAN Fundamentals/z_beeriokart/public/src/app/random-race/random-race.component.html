@@ -1,0 +1,33 @@
+<h2 class="animated slideInDown slow">Random Race</h2>
+<div *ngIf="_formattedUserGroups.length == 0" class="warning animated flash faster" >
+  You must create a group first!
+</div>
+<mat-form-field *ngIf="_formattedUserGroups.length > 0" class="animated slideInDown slow">
+  <mat-select placeholder="Platform" [(ngModel)]="_selectedPlatform" required> 
+    <mat-option value="SNES" (click)="setPlatform()">SNES</mat-option>
+    <mat-option value="N64" (click)="setPlatform()">N64</mat-option>
+    <mat-option value="GC" (click)="setPlatform()">GC</mat-option>
+    <mat-option value="Wii" (click)="setPlatform()">Wii</mat-option>
+    <mat-option value="WiiU" (click)="setPlatform()">Switch</mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="_randomCourse" class="randomCourse">
+  <span class="randomCourse">Random Course: {{ _randomCourse }}</span> <button mat-raised-button (click)="setRandomCourse()" color="primary" class="animated fadeIn faster">Reroll</button> 
+</div>
+<mat-form-field *ngIf="_selectedCourse && _formattedUserGroups.length > 0" required class="animated slideInDown slow">
+  <mat-select placeholder="Group" [(ngModel)]="_selectedGroupIdx">
+    <mat-option value="{{i}}" (click)="setGroup()" *ngFor="let group of _formattedUserGroups; let i = index">
+      {{ group }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="_selectedGroupIdx && _formattedUserGroups.length > 0" required class="animated slideInDown slow">
+  <mat-select placeholder="Winner" [(ngModel)]="_selectedWinner">
+    <mat-option value="{{player}}" (click)="setWinner()" *ngFor="let player of _userGroups[_selectedGroupIdx]['users']; let i = index">
+      {{ player }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="_selectedWinner">
+  <button mat-raised-button (click)="submitRace()" color="accent" class="animated fadeIn faster">Submit</button>
+</div>
