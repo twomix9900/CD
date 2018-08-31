@@ -42,7 +42,7 @@ export class AddGroupsComponent implements OnInit {
   }
 
   updateGroupSize() {
-    this._tempGroupSize = this._groupInfo['groupSize'];
+    this._tempGroupSize = this._groupInfo['groupSize'] - 1;
     this._tempGroupArray = Array(this._tempGroupSize).fill(0).map((x, i) => i);
     this._groupInfo[2] = '';
     this._groupInfo[3] = '';
@@ -60,7 +60,7 @@ export class AddGroupsComponent implements OnInit {
 
   groupSizeValidator() {
     this._tempGroupUsersArray = [this._userScreenName];
-    if (this._groupInfo['groupSize'] === 3) {
+    if (this._groupInfo['groupSize'] === 4) {
       if (!this._groupInfo[2] || !this._groupInfo[3] || !this._groupInfo[4]) {
         this._errorMessages.push('Fill in all player name fields');
         return false;
@@ -71,7 +71,7 @@ export class AddGroupsComponent implements OnInit {
       }
     }
 
-    if (this._groupInfo['groupSize'] === 2) {
+    if (this._groupInfo['groupSize'] === 3) {
       if (!this._groupInfo[2] || !this._groupInfo[3]) {
         this._errorMessages.push('Fill in all player name fields');
         return false;
@@ -81,7 +81,7 @@ export class AddGroupsComponent implements OnInit {
       }
     }
 
-    if (this._groupInfo['groupSize'] === 1) {
+    if (this._groupInfo['groupSize'] === 2) {
       if (!this._groupInfo[2]) {
         this._errorMessages.push('Fill in the player name');
         return false;
